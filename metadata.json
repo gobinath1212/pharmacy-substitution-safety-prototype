@@ -1,0 +1,8 @@
+{
+  "name": "Pharmacy Substitution Safety Prototype",
+  "description": "A rule-based prescription substitution decision checklist and safety dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
