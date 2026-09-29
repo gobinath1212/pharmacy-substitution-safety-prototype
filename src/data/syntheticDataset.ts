@@ -134,6 +134,82 @@ for (let i = 21; i <= 65; i++) {
 export function generateSyntheticPrescriptions(): Prescription[] {
   const prescriptions: Prescription[] = [];
 
+  // Canonical Demonstration Cases (Cases A, B, C)
+  prescriptions.push(
+    // CASE A — UNSAFE ALTERNATIVES BLOCKED
+    {
+      id: "RX-DEMO-A",
+      medicationId: "MED-A",
+      strength: "100 mg",
+      route: "Oral",
+      frequency: "Once Daily",
+      quantity: 30,
+      patientId: "PAT-DEMO-A",
+      prescriberId: "DOC-01",
+      date: BASE_DATE,
+      patientConstraints: [],
+      allergyIds: ["MED-B"],
+      expectedOutcome: "MED-B BLOCKED by allergy; MED-C UNSUITABLE (out of stock); MED-D VALID OPTION",
+      scenarioDescription: "DEMO CASE A: Unsafe alternatives blocked while preserving safe bioequivalent",
+      clinicalNotes: "Evaluates multi-candidate filtering: allergy block, stock rejection, and valid option retention.",
+      isDemoCase: "CASE_A"
+    },
+    // CASE B — HUMAN REVIEW REQUIRED
+    {
+      id: "RX-DEMO-B",
+      medicationId: "MED-A",
+      strength: "100 mg",
+      route: "Oral",
+      frequency: "Once Daily",
+      quantity: 30,
+      patientId: "PAT-DEMO-B",
+      prescriberId: "DOC-01",
+      date: BASE_DATE,
+      patientConstraints: ["Cannot swallow large tablets (dysphagia)"],
+      allergyIds: [],
+      expectedOutcome: "NEEDS_HUMAN_REVIEW (Formulation constraint on MED-E requires clinical assessment)",
+      scenarioDescription: "DEMO CASE B: Patient formulation constraint and uncertainty triggering human review",
+      clinicalNotes: "Patient dysphagia constraint flags large solid tablets for pharmacist clinical verification.",
+      isDemoCase: "CASE_B"
+    },
+    // CASE C — NO VALID OPTION
+    {
+      id: "RX-DEMO-C",
+      medicationId: "MED-A",
+      strength: "100 mg",
+      route: "Oral",
+      frequency: "Once Daily",
+      quantity: 30,
+      patientId: "PAT-DEMO-C",
+      prescriberId: "DOC-RESTRICT",
+      date: BASE_DATE,
+      patientConstraints: ["Cannot swallow large tablets"],
+      allergyIds: ["MED-B", "MED-D"],
+      expectedOutcome: "NO_VALID_OPTION (All alternatives blocked by prescriber DAW-1, allergy, and stock)",
+      scenarioDescription: "DEMO CASE C: Zero safe alternatives remaining; automatic high-priority follow-up dispatched",
+      clinicalNotes: "Critical safety exhaustion case requiring immediate physician consultation.",
+      isDemoCase: "CASE_C"
+    },
+    // Legacy Demo Case Alias (identical to Case A for backward-compatibility)
+    {
+      id: "RX-DEMO",
+      medicationId: "MED-A",
+      strength: "100 mg",
+      route: "Oral",
+      frequency: "Once Daily",
+      quantity: 30,
+      patientId: "PAT-DEMO",
+      prescriberId: "DOC-01",
+      date: BASE_DATE,
+      patientConstraints: [],
+      allergyIds: ["MED-B"],
+      expectedOutcome: "MED-B BLOCKED by allergy; MED-D valid; MED-C out of stock",
+      scenarioDescription: "Live demonstration case with multiple interacting constraints",
+      clinicalNotes: "Demonstrates allergy block, stock rejection, and safe alternative retention in one case.",
+      isDemoCase: "CASE_A"
+    }
+  );
+
   // Core Benchmark Cases (Explicitly controlled)
   prescriptions.push(
     // 1. Classic Allergy conflict: Patient allergic to MED-C
@@ -203,23 +279,6 @@ export function generateSyntheticPrescriptions(): Prescription[] {
       expectedOutcome: "MED-E NEEDS_HUMAN_REVIEW; MED-B capsule & MED-D suspension valid",
       scenarioDescription: "Patient dysphagia constraint",
       clinicalNotes: "Patient has swallowing impairment following neurological event."
-    },
-    // 5. Requirements Demo Case: Allergic to BioCillin (MED-B)
-    {
-      id: "RX-DEMO",
-      medicationId: "MED-A",
-      strength: "100 mg",
-      route: "Oral",
-      frequency: "Once Daily",
-      quantity: 30,
-      patientId: "PAT-DEMO",
-      prescriberId: "DOC-01",
-      date: BASE_DATE,
-      patientConstraints: [],
-      allergyIds: ["MED-B"],
-      expectedOutcome: "MED-B BLOCKED by allergy; MED-D valid; MED-C out of stock",
-      scenarioDescription: "Live demonstration case with multiple interacting constraints",
-      clinicalNotes: "Demonstrates allergy block, stock rejection, and safe alternative retention in one case."
     },
     // 6. Cardiovascular Beta-Blocker substitution: CardioPro (MED-F) to Vascocil ER (MED-G)
     {

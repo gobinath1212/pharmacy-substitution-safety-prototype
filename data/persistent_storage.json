@@ -1,6 +1,6 @@
 {
   "version": "2.0.0-prototype-milestone",
-  "lastUpdated": "2026-09-29T04:56:30.620Z",
+  "lastUpdated": "2026-09-29T05:25:24.549Z",
   "medications": {
     "MED-A": {
       "id": "MED-A",
@@ -125,6 +125,85 @@
   },
   "prescriptions": [
     {
+      "id": "RX-DEMO-A",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-DEMO-A",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-C UNSUITABLE (out of stock); MED-D VALID OPTION",
+      "scenarioDescription": "DEMO CASE A: Unsafe alternatives blocked while preserving safe bioequivalent",
+      "clinicalNotes": "Evaluates multi-candidate filtering: allergy block, stock rejection, and valid option retention.",
+      "isDemoCase": "CASE_A"
+    },
+    {
+      "id": "RX-DEMO-B",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-DEMO-B",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets (dysphagia)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "NEEDS_HUMAN_REVIEW (Formulation constraint on MED-E requires clinical assessment)",
+      "scenarioDescription": "DEMO CASE B: Patient formulation constraint and uncertainty triggering human review",
+      "clinicalNotes": "Patient dysphagia constraint flags large solid tablets for pharmacist clinical verification.",
+      "isDemoCase": "CASE_B"
+    },
+    {
+      "id": "RX-DEMO-C",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-DEMO-C",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B",
+        "MED-D"
+      ],
+      "expectedOutcome": "NO_VALID_OPTION (All alternatives blocked by prescriber DAW-1, allergy, and stock)",
+      "scenarioDescription": "DEMO CASE C: Zero safe alternatives remaining; automatic high-priority follow-up dispatched",
+      "clinicalNotes": "Critical safety exhaustion case requiring immediate physician consultation.",
+      "isDemoCase": "CASE_C"
+    },
+    {
+      "id": "RX-DEMO",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-DEMO",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid; MED-C out of stock",
+      "scenarioDescription": "Live demonstration case with multiple interacting constraints",
+      "clinicalNotes": "Demonstrates allergy block, stock rejection, and safe alternative retention in one case.",
+      "isDemoCase": "CASE_A"
+    },
+    {
       "id": "RX-1001",
       "medicationId": "MED-A",
       "strength": "100 mg",
@@ -191,24 +270,6 @@
       "expectedOutcome": "MED-E NEEDS_HUMAN_REVIEW; MED-B capsule & MED-D suspension valid",
       "scenarioDescription": "Patient dysphagia constraint",
       "clinicalNotes": "Patient has swallowing impairment following neurological event."
-    },
-    {
-      "id": "RX-DEMO",
-      "medicationId": "MED-A",
-      "strength": "100 mg",
-      "route": "Oral",
-      "frequency": "Once Daily",
-      "quantity": 30,
-      "patientId": "PAT-DEMO",
-      "prescriberId": "DOC-01",
-      "date": "2026-09-07T00:00:00.000Z",
-      "patientConstraints": [],
-      "allergyIds": [
-        "MED-B"
-      ],
-      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid; MED-C out of stock",
-      "scenarioDescription": "Live demonstration case with multiple interacting constraints",
-      "clinicalNotes": "Demonstrates allergy block, stock rejection, and safe alternative retention in one case."
     },
     {
       "id": "RX-1006",
@@ -5008,6 +5069,494 @@
   ],
   "experimentRuns": [
     {
+      "id": "EXP-MUM8G3WL",
+      "timestamp": "2026-09-29T05:25:24.549Z",
+      "datasetVersion": "v2.0-synthetic-controlled",
+      "ruleVersion": "v2.0-8-priority-deterministic",
+      "baselineVersion": "v1.0-availability-only",
+      "datasetSize": 223,
+      "baseline": {
+        "totalEvaluations": 2453,
+        "unsafeAllowed": 1199,
+        "unsafeSubstitutionRate": "48.9%",
+        "validSelections": 1540,
+        "unsuitableBlocks": 913
+      },
+      "prototype": {
+        "totalEvaluations": 2453,
+        "unsafeBlocked": 2029,
+        "unsafeSubstitutionRate": "0.0%",
+        "humanReviewCases": 342,
+        "humanReviewRate": "13.9%",
+        "validCasesRemaining": 0,
+        "validOptionRetention": "0.0%",
+        "uncertaintyBreakdown": {
+          "low": 0,
+          "medium": 178,
+          "high": 2275
+        }
+      },
+      "differences": {
+        "safetyViolationsPrevented": 1199,
+        "casesRequiringReview": 342,
+        "allergyConflictsCaught": 128,
+        "prescriberProhibitionsCaught": 264,
+        "routeStrengthMismatchesCaught": 1846
+      },
+      "sampleComparisons": [
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Allergy conflict prevented (BioCillin)"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-A",
+          "patientId": "PAT-DEMO-A",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient formulation constraint: Patient dysphagia constraint: cannot swallow large tablets. Requires pharmacist clinical confirmation."
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-B",
+          "patientId": "PAT-DEMO-B",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Allergy conflict prevented (BioCillin)"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Allergy conflict prevented (SafeCillin)"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-DEMO-C",
+          "patientId": "PAT-DEMO-C",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Allergy conflict prevented (BioCillin)"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        }
+      ]
+    },
+    {
       "id": "EXP-MUM7EXZV",
       "timestamp": "2026-09-29T04:56:30.619Z",
       "datasetSize": 220,
@@ -5492,5 +6041,6 @@
         }
       ]
     }
-  ]
+  ],
+  "humanReviewDecisions": []
 }

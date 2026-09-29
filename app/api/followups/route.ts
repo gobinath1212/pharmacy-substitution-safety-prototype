@@ -92,6 +92,31 @@ export async function PUT(request: Request) {
     }
 
     const updated = await storage.updateFollowUp(id, updates);
+
+    // Record escalation or resolution in audit log
+    if (escalationLevel !== undefined && escalationLevel > current.escalationLevel) {
+      await storage.saveAuditLog({
+        id: `LOG-ESC-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 1000)}`,
+        caseId: current.caseId,
+        user: actor || "PHARM-CLINICAL-1",
+        action: "ESCALATE",
+        previousDecision: `Level ${current.escalationLevel}`,
+        newDecision: `Level ${escalationLevel}`,
+        reason: note || `Case escalated to Level ${escalationLevel}`,
+        timestamp: new Date().toISOString()
+      });
+    } else if (status === "RESOLVED") {
+      await storage.saveAuditLog({
+        id: `LOG-RES-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 1000)}`,
+        caseId: current.caseId,
+        user: actor || "PHARM-CLINICAL-1",
+        action: "RESOLVE",
+        previousDecision: current.status,
+        newDecision: "RESOLVED",
+        reason: resolutionNotes || note || "Follow-up resolved by clinician.",
+        timestamp: new Date().toISOString()
+      });
+    }
     return NextResponse.json({ success: true, followUp: updated });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Failed to update follow-up" }, { status: 500 });

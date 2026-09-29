@@ -17,10 +17,17 @@ import {
   MessageSquare,
   HelpCircle,
   Clock,
-  Layers
+  Layers,
+  UserCheck,
+  Lock
 } from 'lucide-react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { CandidateAlternativeEvaluation, PrescriptionAlternativesEvaluation, EvidenceCatalogItem } from '../../../src/types';
+import { 
+  CandidateAlternativeEvaluation, 
+  PrescriptionAlternativesEvaluation, 
+  EvidenceCatalogItem,
+  UserRole 
+} from '../../../src/types';
 import { SYNTHETIC_EVIDENCE_CATALOG } from '../../../src/data/evidenceCatalog';
 
 const StatusBadge = ({ status }: { status: string }) => {
@@ -99,19 +106,29 @@ export default function ReviewPage() {
   const [selectedCandidate, setSelectedCandidate] = useState<CandidateAlternativeEvaluation | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Active Role Simulator (Section 13 RBAC)
+  const [activeRole, setActiveRole] = useState<UserRole>("PHARMACIST");
+  const [reviewerName, setReviewerName] = useState("Dr. Evelyn Reed, PharmD");
+
   // Evidence Dialog
   const [selectedEvidence, setSelectedEvidence] = useState<EvidenceCatalogItem | null>(null);
+
+  // Human Confirmation Modal State (Section 4)
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<"CONFIRM" | "REJECT" | "REQUEST_CLARIFICATION">("CONFIRM");
+  const [confirmReason, setConfirmReason] = useState("");
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState("");
 
   // Override State
   const [showOverride, setShowOverride] = useState(false);
   const [overrideReason, setOverrideReason] = useState("");
   const [overrideLoading, setOverrideLoading] = useState(false);
+  const [overrideError, setOverrideError] = useState("");
   const [overrideSuccessMessage, setOverrideSuccessMessage] = useState("");
 
   // Stakeholder Feedback State
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [reviewerName, setReviewerName] = useState("Dr. Evelyn Reed, PharmD");
-  const [reviewerRole, setReviewerRole] = useState<"Staff Pharmacist" | "Clinical Pharmacy Specialist" | "Safety Auditor" | "Pharmacy Director">("Staff Pharmacist");
   const [feedbackAgreement, setFeedbackAgreement] = useState<"AGREE" | "DISAGREE" | "NEEDS_MODIFICATION">("AGREE");
   const [feedbackComments, setFeedbackComments] = useState("");
   const [feedbackAction, setFeedbackAction] = useState("");
@@ -122,19 +139,21 @@ export default function ReviewPage() {
   const [escalateNote, setEscalateNote] = useState("");
   const [escalateLevel, setEscalateLevel] = useState(1);
   const [escalatePriority, setEscalatePriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "CRITICAL">("HIGH");
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    async function loadData() {
+    let isMounted = true;
+
+    async function loadCaseData() {
       try {
         const res = await fetch(`/api/prescriptions?id=${params.id}`);
         if (!res.ok) {
-          setLoading(false);
+          if (isMounted) setLoading(false);
           return;
         }
         const data = await res.json();
-        setRx(data);
+        if (isMounted) setRx(data);
 
-        // Evaluate all alternatives using prescription-wide evaluation
         const evalRes = await fetch('/api/evaluate-substitution', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -143,23 +162,89 @@ export default function ReviewPage() {
 
         if (evalRes.ok) {
           const evalData: PrescriptionAlternativesEvaluation = await evalRes.json();
-          setEvaluation(evalData);
-          if (evalData.candidateAlternatives.length > 0) {
-            setSelectedCandidate(evalData.candidateAlternatives[0]);
+          if (isMounted) {
+            setEvaluation(evalData);
+            if (evalData.candidateAlternatives.length > 0) {
+              setSelectedCandidate(evalData.candidateAlternatives[0]);
+            }
           }
         }
       } catch (err) {
         console.error("Failed to load case data:", err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
-    loadData();
-  }, [params.id]);
 
+    loadCaseData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [params.id, refreshKey]);
+
+  // Section 4 Human Confirmation Handler
+  const handleHumanReviewSubmit = async () => {
+    if (!selectedCandidate || !rx) return;
+    if (!confirmReason.trim()) {
+      setConfirmMessage("Please provide a clinical rationale for this review decision.");
+      return;
+    }
+
+    setConfirmLoading(true);
+    setConfirmMessage("");
+
+    try {
+      const res = await fetch('/api/human-review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          caseId: rx.id,
+          alternativeId: selectedCandidate.alternativeId,
+          reviewer: reviewerName,
+          role: activeRole,
+          action: confirmAction,
+          reason: confirmReason.trim()
+        })
+      });
+
+      const resData = await res.json();
+      if (res.ok) {
+        setConfirmMessage(`Decision '${confirmAction}' recorded and logged to audit trail.`);
+        setTimeout(() => {
+          setShowConfirmModal(false);
+          setConfirmReason("");
+          setConfirmMessage("");
+          setRefreshKey(k => k + 1);
+        }, 1200);
+      } else {
+        setConfirmMessage(resData.error || "Submission failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      setConfirmMessage("Failed to record review decision.");
+    } finally {
+      setConfirmLoading(false);
+    }
+  };
+
+  // Section 4 Override Handler
   const handleOverride = async () => {
-    if (!overrideReason.trim() || !selectedCandidate || !rx) return;
+    if (!selectedCandidate || !rx) return;
+    
+    // Explicit mandatory check for override reason
+    if (!overrideReason.trim()) {
+      setOverrideError("Override reason is required for auditability.");
+      return;
+    }
+
+    if (activeRole === "COORDINATOR") {
+      setOverrideError("Access Denied: Pharmacy Coordinators are not authorized to override clinical safety blocks.");
+      return;
+    }
+
     setOverrideLoading(true);
+    setOverrideError("");
 
     try {
       const res = await fetch('/api/override', {
@@ -169,21 +254,27 @@ export default function ReviewPage() {
           caseId: rx.id,
           alternativeId: selectedCandidate.alternativeId,
           reviewerId: reviewerName,
-          reason: overrideReason,
+          role: activeRole,
+          reason: overrideReason.trim(),
           previousDecision: selectedCandidate.decision
         })
       });
 
+      const data = await res.json();
       if (res.ok) {
-        setOverrideSuccessMessage("Override logged in persistent audit log and follow-up queue.");
+        setOverrideSuccessMessage("Override logged in persistent audit log with chained hash checksum.");
         setTimeout(() => {
           setShowOverride(false);
           setOverrideReason("");
           setOverrideSuccessMessage("");
-        }, 1500);
+          setRefreshKey(k => k + 1);
+        }, 1400);
+      } else {
+        setOverrideError(data.error || "Override submission rejected.");
       }
     } catch (err) {
       console.error("Override failed", err);
+      setOverrideError("Server communication error during override.");
     } finally {
       setOverrideLoading(false);
     }
@@ -199,7 +290,7 @@ export default function ReviewPage() {
         body: JSON.stringify({
           caseId: rx.id,
           reviewerName,
-          reviewerRole,
+          reviewerRole: activeRole === "PHARMACIST" ? "Staff Pharmacist" : "Clinical Pharmacy Specialist",
           agreement: feedbackAgreement,
           decisionEvaluated: `${selectedCandidate.alternativeId} (${selectedCandidate.decision})`,
           comments: feedbackComments,
@@ -270,8 +361,8 @@ export default function ReviewPage() {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      {/* Top Navigation & Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Top Bar with Role Simulator */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
@@ -287,14 +378,31 @@ export default function ReviewPage() {
           </div>
         </div>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2">
+        {/* RBAC Role Selector & Actions */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Active Role Selector */}
+          <div className="flex items-center gap-1.5 bg-[#0f0f0f] border border-white/10 px-2.5 py-1.5 rounded-lg text-xs">
+            <UserCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <span className="text-[10px] uppercase font-bold text-gray-400">Role:</span>
+            <select
+              value={activeRole}
+              onChange={(e: any) => setActiveRole(e.target.value)}
+              className="bg-transparent text-white font-mono text-[11px] focus:outline-none cursor-pointer"
+            >
+              <option value="PHARMACIST" className="bg-black">PHARMACIST</option>
+              <option value="SENIOR_PHARMACIST" className="bg-black">SENIOR_PHARMACIST</option>
+              <option value="COORDINATOR" className="bg-black">COORDINATOR (Restricted)</option>
+              <option value="PRESCRIBER" className="bg-black">PRESCRIBER</option>
+              <option value="ADMIN" className="bg-black">ADMIN</option>
+            </select>
+          </div>
+
           <button
             onClick={() => setShowFeedbackModal(true)}
             className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs text-gray-300 font-medium flex items-center gap-1.5 transition-colors"
           >
             <MessageSquare className="w-3.5 h-3.5 text-[#D4AF37]" />
-            Pharmacist Validation
+            Validation Feedback
           </button>
           <button
             onClick={() => setShowEscalateModal(true)}
@@ -326,7 +434,7 @@ export default function ReviewPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
           <div>
             <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Prescribed Drug</p>
-            <p className="font-mono text-white mt-1 text-sm">{rx.medicationId}</p>
+            <p className="font-mono text-white mt-1 text-sm font-bold">{rx.medicationId}</p>
           </div>
           <div>
             <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Dosage & Route</p>
@@ -359,8 +467,8 @@ export default function ReviewPage() {
         </div>
 
         {rx.scenarioDescription && (
-          <div className="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 flex items-center justify-between">
-            <span><strong className="text-gray-300">Scenario:</strong> {rx.scenarioDescription}</span>
+          <div className="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <span><strong className="text-gray-300">Scenario Context:</strong> {rx.scenarioDescription}</span>
             <span className="text-gray-500 font-mono text-[10px]">{rx.clinicalNotes}</span>
           </div>
         )}
@@ -372,7 +480,7 @@ export default function ReviewPage() {
           <h2 className="text-sm uppercase tracking-widest font-bold text-[#D4AF37]">
             Evaluated Candidate Alternatives ({evaluation?.candidateAlternatives.length || 0})
           </h2>
-          <span className="text-[10px] text-gray-400">Click a candidate to inspect its decision trace</span>
+          <span className="text-[10px] text-gray-400">Click a candidate row to inspect its decision trace</span>
         </div>
 
         <div className="bg-[#0f0f0f] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
@@ -385,12 +493,15 @@ export default function ReviewPage() {
                   <th scope="col" className="p-3.5">Risk Level</th>
                   <th scope="col" className="p-3.5">Uncertainty</th>
                   <th scope="col" className="p-3.5">Primary Decision Reason</th>
-                  <th scope="col" className="p-3.5 text-right">Action</th>
+                  <th scope="col" className="p-3.5 text-right">Workflow Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
                 {evaluation?.candidateAlternatives.map((cand) => {
                   const isSelected = selectedCandidate?.alternativeId === cand.alternativeId;
+                  const isNeedsReview = cand.status === "NEEDS_HUMAN_REVIEW";
+                  const isBlocked = cand.status === "BLOCKED";
+
                   return (
                     <tr
                       key={cand.alternativeId}
@@ -408,8 +519,8 @@ export default function ReviewPage() {
                       </td>
                       <td className="p-3.5 whitespace-nowrap">
                         <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                          cand.riskLevel === 'CRITICAL' ? 'text-rose-500' :
-                          cand.riskLevel === 'HIGH' ? 'text-rose-400' :
+                          cand.riskLevel === 'CRITICAL' ? 'text-rose-500 font-bold' :
+                          cand.riskLevel === 'HIGH' ? 'text-rose-400 font-semibold' :
                           cand.riskLevel === 'MEDIUM' ? 'text-amber-400' : 'text-emerald-400'
                         }`}>
                           {cand.riskLevel}
@@ -426,11 +537,24 @@ export default function ReviewPage() {
                       <td className="p-3.5 text-gray-300 max-w-sm truncate text-xs" title={cand.reasons.join(' ')}>
                         {cand.reasons[0] || "Passed all clinical priority rules."}
                       </td>
-                      <td className="p-3.5 text-right whitespace-nowrap">
+                      <td className="p-3.5 text-right whitespace-nowrap space-x-2">
+                        {isNeedsReview && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedCandidate(cand);
+                              setShowConfirmModal(true);
+                            }}
+                            className="text-[10px] uppercase font-bold text-amber-400 hover:text-black hover:bg-amber-400 px-2.5 py-1 bg-amber-500/10 rounded transition-colors border border-amber-500/30"
+                          >
+                            Review Decision
+                          </button>
+                        )}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedCandidate(cand);
+                            setOverrideError("");
                             setShowOverride(true);
                           }}
                           className="text-[10px] uppercase font-bold text-[#D4AF37] hover:text-white px-2.5 py-1 bg-white/5 hover:bg-white/10 rounded transition-colors"
@@ -457,7 +581,17 @@ export default function ReviewPage() {
                 <Layers className="w-4 h-4 text-[#D4AF37]" />
                 Decision Trace: {selectedCandidate.alternativeId} ({selectedCandidate.alternativeName})
               </h3>
-              <StatusBadge status={selectedCandidate.status} />
+              <div className="flex items-center gap-2">
+                <StatusBadge status={selectedCandidate.status} />
+                {selectedCandidate.status === "NEEDS_HUMAN_REVIEW" && (
+                  <button
+                    onClick={() => setShowConfirmModal(true)}
+                    className="px-3 py-1 bg-amber-500 hover:bg-amber-400 text-black text-[10px] uppercase font-bold rounded"
+                  >
+                    Human Confirmation Action
+                  </button>
+                )}
+              </div>
             </div>
             
             <div className="p-3.5 bg-black/60 rounded-lg border border-white/5 font-mono text-xs text-gray-300 leading-relaxed overflow-x-auto">
@@ -589,19 +723,159 @@ export default function ReviewPage() {
         </div>
       )}
 
-      {/* Override Dialog */}
+      {/* Human Review Confirmation Modal (Section 4 Requirement) */}
+      <Dialog.Root open={showConfirmModal} onOpenChange={setShowConfirmModal}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 animate-in fade-in" />
+          <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-[#0d0d0d] border border-amber-500/30 rounded-2xl p-6 shadow-2xl z-50">
+            <h2 className="text-lg font-serif italic text-amber-400 mb-1">
+              Human Clinical Review & Confirmation
+            </h2>
+            <p className="text-xs text-gray-400 mb-4">
+              Reviewing candidate <strong className="text-white">{selectedCandidate?.alternativeId}</strong> ({selectedCandidate?.alternativeName}) flagged for <strong className="text-amber-400">{selectedCandidate?.decision}</strong>.
+            </p>
+
+            <div className="space-y-4 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Reviewer</label>
+                  <input
+                    type="text"
+                    value={reviewerName}
+                    onChange={(e) => setReviewerName(e.target.value)}
+                    className="w-full bg-[#141414] border border-white/10 rounded-lg p-2.5 text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Reviewer Role</label>
+                  <div className="w-full bg-[#141414] border border-white/10 rounded-lg p-2.5 text-gray-300 font-mono">
+                    {activeRole}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Confirmation Action *</label>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setConfirmAction("CONFIRM")}
+                    className={`p-2.5 rounded-lg text-center font-bold uppercase text-[10px] tracking-wider transition-colors border ${
+                      confirmAction === "CONFIRM"
+                        ? 'bg-emerald-500 text-black border-emerald-400'
+                        : 'bg-white/5 text-gray-400 border-white/10 hover:text-white'
+                    }`}
+                  >
+                    CONFIRM
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmAction("REJECT")}
+                    className={`p-2.5 rounded-lg text-center font-bold uppercase text-[10px] tracking-wider transition-colors border ${
+                      confirmAction === "REJECT"
+                        ? 'bg-rose-500 text-white border-rose-400'
+                        : 'bg-white/5 text-gray-400 border-white/10 hover:text-white'
+                    }`}
+                  >
+                    REJECT
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmAction("REQUEST_CLARIFICATION")}
+                    className={`p-2.5 rounded-lg text-center font-bold uppercase text-[10px] tracking-wider transition-colors border ${
+                      confirmAction === "REQUEST_CLARIFICATION"
+                        ? 'bg-amber-500 text-black border-amber-400'
+                        : 'bg-white/5 text-gray-400 border-white/10 hover:text-white'
+                    }`}
+                  >
+                    CLARIFICATION
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Clinical Rationale / Reason *</label>
+                <textarea
+                  rows={3}
+                  value={confirmReason}
+                  onChange={(e) => setConfirmReason(e.target.value)}
+                  placeholder="State clinical justification for this review action..."
+                  className="w-full bg-[#141414] border border-white/10 rounded-lg p-3 text-white placeholder-gray-600 focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div className="text-[10px] text-gray-500 font-mono">
+                Timestamp: {new Date().toISOString()}
+              </div>
+
+              {confirmMessage && (
+                <div className={`p-3 rounded text-xs border ${
+                  confirmMessage.includes('recorded') ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                }`}>
+                  {confirmMessage}
+                </div>
+              )}
+
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmModal(false)}
+                  className="px-4 py-2 bg-white/5 hover:bg-white/10 text-gray-300 rounded-lg font-semibold uppercase text-xs"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={confirmLoading || !confirmReason.trim()}
+                  onClick={handleHumanReviewSubmit}
+                  className="px-5 py-2 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-black rounded-lg font-bold uppercase text-xs"
+                >
+                  {confirmLoading ? "Recording..." : "Save Review Decision"}
+                </button>
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      {/* Override Dialog (Section 4 & Section 12 RBAC) */}
       <Dialog.Root open={showOverride} onOpenChange={setShowOverride}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 animate-in fade-in" />
           <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-[#0d0d0d] border border-white/10 rounded-2xl p-6 shadow-2xl z-50">
-            <h2 className="text-lg font-serif italic text-white mb-2">
+            <h2 className="text-lg font-serif italic text-white mb-1">
               Pharmacist Clinical Override
             </h2>
             <p className="text-xs text-gray-400 mb-4">
-              Overriding candidate <strong className="text-white">{selectedCandidate?.alternativeId}</strong> ({selectedCandidate?.alternativeName}) from status <strong className="text-[#D4AF37]">{selectedCandidate?.decision}</strong>. An immutable audit record will be logged.
+              Overriding candidate <strong className="text-white">{selectedCandidate?.alternativeId}</strong> ({selectedCandidate?.alternativeName}) from status <strong className="text-[#D4AF37]">{selectedCandidate?.decision}</strong>.
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-4 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Reviewer Name *</label>
+                  <input
+                    type="text"
+                    value={reviewerName}
+                    onChange={(e) => setReviewerName(e.target.value)}
+                    className="w-full bg-[#141414] border border-white/10 rounded-lg p-2.5 text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Active Role</label>
+                  <div className="w-full bg-[#141414] border border-white/10 rounded-lg p-2.5 text-gray-300 font-mono flex items-center justify-between">
+                    <span>{activeRole}</span>
+                    {activeRole === "COORDINATOR" && <Lock className="w-3.5 h-3.5 text-rose-500" />}
+                  </div>
+                </div>
+              </div>
+
+              {activeRole === "COORDINATOR" && (
+                <div className="p-3 bg-rose-500/15 border border-rose-500/30 rounded text-rose-300 text-xs">
+                  Access Denied: Pharmacy Coordinators are not authorized to override clinical safety blocks.
+                </div>
+              )}
+
               <div>
                 <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">
                   Clinical Rationale / Prescriber Confirmation *
@@ -609,11 +883,21 @@ export default function ReviewPage() {
                 <textarea
                   rows={4}
                   value={overrideReason}
-                  onChange={(e) => setOverrideReason(e.target.value)}
+                  onChange={(e) => {
+                    setOverrideReason(e.target.value);
+                    if (overrideError) setOverrideError("");
+                  }}
                   placeholder="e.g. Verbal prescriber authorization received for emergency 3-day supply..."
                   className="w-full bg-[#141414] border border-white/10 rounded-lg p-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
+
+              {overrideError && (
+                <div className="p-3 bg-rose-500/20 border border-rose-500/40 text-rose-300 rounded text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                  {overrideError}
+                </div>
+              )}
 
               {overrideSuccessMessage && (
                 <div className="p-3 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 rounded text-xs flex items-center gap-2">
@@ -632,7 +916,7 @@ export default function ReviewPage() {
                 </button>
                 <button
                   type="button"
-                  disabled={!overrideReason.trim() || overrideLoading}
+                  disabled={overrideLoading}
                   onClick={handleOverride}
                   className="px-5 py-2 bg-[#D4AF37] hover:bg-[#e0bc46] disabled:opacity-50 text-black rounded-lg text-xs uppercase tracking-wider font-bold transition-all"
                 >
@@ -644,7 +928,7 @@ export default function ReviewPage() {
         </Dialog.Portal>
       </Dialog.Root>
 
-      {/* Pharmacist Validation Feedback Modal */}
+      {/* Stakeholder Validation Feedback Modal */}
       <Dialog.Root open={showFeedbackModal} onOpenChange={setShowFeedbackModal}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 animate-in fade-in" />
@@ -669,16 +953,9 @@ export default function ReviewPage() {
                 </div>
                 <div>
                   <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Clinical Role</label>
-                  <select
-                    value={reviewerRole}
-                    onChange={(e: any) => setReviewerRole(e.target.value)}
-                    className="w-full bg-[#141414] border border-white/10 rounded-lg p-2.5 text-white"
-                  >
-                    <option value="Staff Pharmacist">Staff Pharmacist</option>
-                    <option value="Clinical Pharmacy Specialist">Clinical Pharmacy Specialist</option>
-                    <option value="Safety Auditor">Safety Auditor</option>
-                    <option value="Pharmacy Director">Pharmacy Director</option>
-                  </select>
+                  <div className="w-full bg-[#141414] border border-white/10 rounded-lg p-2.5 text-gray-300 font-mono">
+                    {activeRole}
+                  </div>
                 </div>
               </div>
 

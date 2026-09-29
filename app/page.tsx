@@ -45,34 +45,35 @@ export default function DashboardPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none" />
         <div className="max-w-2xl space-y-3 relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] text-xs font-mono font-bold">
-            70% Prototype Milestone · Deterministic Safety Engine
+            100% Milestone · Production-Grade Deterministic Safety Engine
           </div>
           <h1 className="text-3xl font-serif italic text-white tracking-tight">
             Pharmacy Prescription Substitution Safety Prototype
           </h1>
           <p className="text-xs text-gray-400 leading-relaxed">
-            Rule-based multi-alternative evaluation, 8-level priority conflict resolution, evidence traceability, and comparative experimentation across 220 controlled synthetic cases.
+            Deterministic 8-priority rules engine, multi-candidate evaluation waterfall, evidence traceability (EVID-001..008), potential harm analysis, and comparative benchmarking across 220 controlled synthetic cases.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Link
-              href="/experiment"
+              href="/demo"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#D4AF37] text-black rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-[#e0bc46] transition-colors shadow-lg"
             >
-              <FlaskConical className="w-4 h-4 fill-black" />
-              Launch Experiment Harness
+              <ShieldAlert className="w-4 h-4 fill-black" />
+              Demo Scenarios (A, B, C)
             </Link>
             <Link
-              href="/review/RX-DEMO"
+              href="/experiment"
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors"
             >
-              Interactive Demo Case <ArrowRight className="w-3.5 h-3.5" />
+              <FlaskConical className="w-3.5 h-3.5 text-[#D4AF37]" />
+              Experiment Harness
             </Link>
             <Link
-              href="/evidence"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors"
+              href="/quality-gate"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-emerald-400 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors"
             >
-              <Library className="w-3.5 h-3.5 text-[#D4AF37]" />
-              Evidence Catalog
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Quality Gate
             </Link>
           </div>
         </div>

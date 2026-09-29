@@ -141,6 +141,9 @@ export async function runComparativeExperiment(): Promise<ExperimentRun> {
   const experimentRun: ExperimentRun = {
     id: `EXP-${Date.now().toString(36).toUpperCase()}`,
     timestamp: new Date().toISOString(),
+    datasetVersion: "v2.0-synthetic-controlled",
+    ruleVersion: "v2.0-8-priority-deterministic",
+    baselineVersion: "v1.0-availability-only",
     datasetSize: prescriptions.length,
     baseline: {
       totalEvaluations: baselineTotalEvals,

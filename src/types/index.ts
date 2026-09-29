@@ -1,3 +1,5 @@
+export type UserRole = "PHARMACIST" | "SENIOR_PHARMACIST" | "COORDINATOR" | "PRESCRIBER" | "ADMIN";
+
 export interface Medication {
   id: string;
   name: string;
@@ -24,6 +26,7 @@ export interface Prescription {
   expectedOutcome?: string;
   scenarioDescription?: string;
   clinicalNotes?: string;
+  isDemoCase?: "CASE_A" | "CASE_B" | "CASE_C";
 }
 
 export interface ApprovedAlternative {
@@ -76,7 +79,8 @@ export interface FollowUp {
   escalationLevel: number;
   overrideReason?: string;
   resolutionNotes?: string;
-  createdAt?: string;
+  createdAt: string;
+  updatedAt?: string;
   escalationHistory?: EscalationRecord[];
 }
 
@@ -84,12 +88,27 @@ export interface AuditLogEntry {
   id: string;
   caseId: string;
   user: string;
-  action: string;
+  role?: UserRole;
+  action: "OVERRIDE" | "AUTOMATED_EVALUATION" | "CONFIRM" | "REJECT" | "REQUEST_CLARIFICATION" | "ESCALATE" | "RESOLVE";
   previousDecision: string;
   newDecision: string;
   reason: string;
   timestamp: string;
   alternativeId?: string;
+  ruleVersion?: string;
+  datasetVersion?: string;
+  integrityHash?: string;
+}
+
+export interface HumanReviewDecision {
+  id: string;
+  caseId: string;
+  alternativeId: string;
+  reviewer: string;
+  role: UserRole;
+  action: "CONFIRM" | "REJECT" | "REQUEST_CLARIFICATION";
+  reason: string;
+  timestamp: string;
 }
 
 export type DecisionStatus = "VALID OPTION" | "BLOCKED" | "UNSUITABLE" | "NEEDS HUMAN REVIEW";
@@ -142,7 +161,6 @@ export interface CandidateAlternativeEvaluation {
   potentialHarm: string[];
 }
 
-// Backwards-compatible alias for existing rule evaluations
 export type RuleEvaluationResult = CandidateAlternativeEvaluation;
 
 export interface PrescriptionAlternativesEvaluation {
@@ -186,6 +204,9 @@ export interface StakeholderFeedback {
 export interface ExperimentRun {
   id: string;
   timestamp: string;
+  datasetVersion: string;
+  ruleVersion: string;
+  baselineVersion: string;
   datasetSize: number;
   baseline: {
     totalEvaluations: number;
@@ -222,6 +243,99 @@ export interface ExperimentRun {
   }>;
 }
 
+export interface DetailedMetrics {
+  totalPrescriptions: number;
+  totalCandidateEvaluations: number;
+  safeCandidates: number;
+  unsafeCandidates: number;
+  blockedUnsafeCandidates: number;
+  unsafeSubstitutionRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  safetyCatchRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  validOptionRetention: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  falseBlockRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  humanReviewRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  noValidOptionRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  overrideRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  escalationRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  dataQualityReviewRate: {
+    baseline: string;
+    prototype: string;
+    target: string;
+  };
+  overridesCount: number;
+  escalationsCount: number;
+}
+
+export interface ErrorAnalysisItem {
+  caseId: string;
+  candidateId: string;
+  expectedDecision: string;
+  actualDecision: string;
+  result: "PASS" | "FAIL" | "EXPECTED_DISCREPANCY";
+  errorCategory: 
+    | "missed unsafe substitution"
+    | "false block"
+    | "stock error"
+    | "rule conflict"
+    | "missing data"
+    | "uncertainty issue"
+    | "review classification issue"
+    | "none";
+  affectedRule: string;
+  possibleCause: string;
+  correctiveAction: string;
+}
+
+export interface DataQualityIssue {
+  type: "CRITICAL" | "WARNING" | "INFO";
+  category: "missing_field" | "duplicate_id" | "broken_reference" | "stale_telemetry" | "invalid_stock" | "missing_allergy";
+  entityId: string;
+  description: string;
+  recommendedResolution: string;
+}
+
+export interface DataQualityReport {
+  timestamp: string;
+  totalRecordsChecked: number;
+  validCount: number;
+  warningCount: number;
+  criticalCount: number;
+  issues: DataQualityIssue[];
+  integrityStatus: "HEALTHY" | "DEGRADED" | "ACTION_REQUIRED";
+}
+
 export interface SystemContext {
   medications: Record<string, Medication>;
   approvedAlternatives: ApprovedAlternative[];
@@ -229,4 +343,5 @@ export interface SystemContext {
   stock: Record<string, Stock>;
   prescriberRules: PrescriberRule[];
   evidenceCatalog?: Record<string, EvidenceCatalogItem>;
+  humanReviewDecisions?: HumanReviewDecision[];
 }

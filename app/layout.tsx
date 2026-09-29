@@ -30,11 +30,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ShieldAlert className="w-5 h-5 text-[#D4AF37]" />
               RxSafe Sub
             </h1>
-            <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">70% Milestone Prototype</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#D4AF37] mt-1 font-bold">100% Final Prototype</p>
           </div>
           <nav className="flex-1 overflow-y-auto p-4 space-y-1.5 text-sm">
             <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
               <LayoutDashboard className="w-4 h-4" /> Dashboard
+            </Link>
+            <Link href="/demo" className="flex items-center gap-3 px-3 py-2 rounded-lg text-[#D4AF37] hover:text-white hover:bg-white/5 transition-colors font-medium">
+              <ShieldAlert className="w-4 h-4 text-[#D4AF37]" /> Demo Scenarios
             </Link>
             <Link href="/prescriptions" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
               <FileText className="w-4 h-4" /> Prescriptions
@@ -48,17 +51,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/evidence" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
               <Library className="w-4 h-4" /> Evidence Catalog
             </Link>
-            <Link href="/tests" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Settings2 className="w-4 h-4" /> Test Harness
-            </Link>
             <Link href="/metrics" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
               <BarChart2 className="w-4 h-4" /> Safety Metrics
             </Link>
             <Link href="/audit" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
               <Activity className="w-4 h-4" /> Audit Log
             </Link>
+
+            <div className="pt-4 pb-1">
+              <p className="px-3 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Verification & Quality</p>
+            </div>
+            <Link href="/quality-gate" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+              <CheckSquare className="w-4 h-4 text-emerald-400" /> Quality Gate
+            </Link>
+            <Link href="/tests" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+              <Settings2 className="w-4 h-4" /> Test Harness
+            </Link>
+            <Link href="/error-analysis" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+              <BarChart2 className="w-4 h-4 text-amber-400" /> Error Analysis
+            </Link>
+            <Link href="/data-quality" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+              <FileText className="w-4 h-4 text-blue-400" /> Data Quality
+            </Link>
+            <Link href="/system-health" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+              <Activity className="w-4 h-4 text-purple-400" /> System Health
+            </Link>
             
-            <div className="pt-5 pb-2">
+            <div className="pt-4 pb-1">
               <p className="px-3 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Documentation</p>
             </div>
             <Link href="/requirements" className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">

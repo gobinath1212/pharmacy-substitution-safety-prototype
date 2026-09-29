@@ -21,6 +21,7 @@ export default function FollowUpsPage() {
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [priorityFilter, setPriorityFilter] = useState("ALL");
+  const [now, setNow] = useState<number>(0);
 
   // Escalation / Resolution Modal State
   const [selectedItem, setSelectedItem] = useState<FollowUp | null>(null);
@@ -58,6 +59,7 @@ export default function FollowUpsPage() {
       .then(res => res.ok ? res.json() : [])
       .then(data => {
         if (isMounted) {
+          setNow(Date.now());
           setFollowUps(data);
           setLoading(false);
         }
@@ -129,6 +131,9 @@ export default function FollowUpsPage() {
     }
   };
 
+  const overdueItems = now > 0 ? followUps.filter(f => f.status !== 'RESOLVED' && new Date(f.dueDate).getTime() < now) : [];
+  const criticalOverdueCount = overdueItems.filter(f => f.priority === 'CRITICAL' || f.priority === 'HIGH').length;
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       {/* Header */}
@@ -140,11 +145,41 @@ export default function FollowUpsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          {criticalOverdueCount > 0 && (
+            <span className="text-xs font-mono text-rose-400 bg-rose-500/10 px-3 py-1.5 rounded border border-rose-500/30 flex items-center gap-1.5 font-bold animate-pulse">
+              <ShieldAlert className="w-3.5 h-3.5 text-rose-500" />
+              {criticalOverdueCount} Critical Overdue
+            </span>
+          )}
           <span className="text-xs font-mono text-gray-400 bg-white/5 px-3 py-1.5 rounded border border-white/10">
             {followUps.filter(f => f.status !== 'RESOLVED').length} Active Tasks
           </span>
         </div>
       </div>
+
+      {/* Critical Overdue Warning Banner */}
+      {criticalOverdueCount > 0 && (
+        <div className="bg-rose-950/30 border border-rose-500/40 rounded-xl p-4 flex items-start justify-between gap-4 text-xs">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+            <div>
+              <h4 className="font-serif font-bold text-white text-sm">Overdue Safety Alert: {criticalOverdueCount} Urgent Case(s) Require Escalation</h4>
+              <p className="text-rose-200/80 mt-1">
+                One or more High/Critical priority clinical follow-up tasks have exceeded their due dates. Protocol mandates senior pharmacist or physician board escalation.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => {
+              setStatusFilter("OPEN");
+              setPriorityFilter("CRITICAL");
+            }}
+            className="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded font-bold text-[10px] uppercase tracking-wider shrink-0"
+          >
+            Filter Critical
+          </button>
+        </div>
+      )}
 
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 bg-[#0f0f0f] p-4 rounded-xl border border-white/10">
@@ -213,44 +248,60 @@ export default function FollowUpsPage() {
                   </td>
                 </tr>
               ) : (
-                followUps.map((fu) => (
-                  <tr key={fu.id} className="hover:bg-white/5 transition-colors">
-                    <td className="p-4 whitespace-nowrap">
-                      <a href={`/review/${fu.caseId}`} className="font-mono font-bold text-white hover:text-[#D4AF37] transition-colors">
-                        {fu.caseId}
-                      </a>
-                      <span className="block text-[10px] text-gray-500 font-mono">{fu.id}</span>
-                    </td>
-                    <td className="p-4 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                        fu.priority === 'CRITICAL' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
-                        fu.priority === 'HIGH' ? 'bg-rose-500/10 text-rose-400' :
-                        fu.priority === 'MEDIUM' ? 'bg-amber-500/10 text-amber-400' : 'bg-gray-500/10 text-gray-400'
-                      }`}>
-                        {fu.priority}
-                      </span>
-                    </td>
-                    <td className="p-4 whitespace-nowrap space-y-1">
-                      <div className="font-semibold text-gray-200">{fu.status}</div>
-                      <div>{getEscalationBadge(fu.escalationLevel)}</div>
-                    </td>
-                    <td className="p-4 whitespace-nowrap text-gray-400">
-                      <div className="flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5 text-gray-500" />
-                        <span>{fu.owner}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-[10px] text-gray-500 mt-0.5">
-                        <Clock className="w-3 h-3" />
-                        <span>Due {format(new Date(fu.dueDate), 'MMM d')}</span>
-                      </div>
-                    </td>
-                    <td className="p-4 text-xs text-gray-300 max-w-xs truncate" title={fu.resolutionNotes || fu.overrideReason || ""}>
-                      {fu.overrideReason ? (
-                        <span className="text-amber-400 italic">Override: {fu.overrideReason}</span>
-                      ) : (
-                        fu.resolutionNotes || "Awaiting clinician assessment."
-                      )}
-                    </td>
+                followUps.map((fu) => {
+                  const isOverdue = fu.status !== 'RESOLVED' && new Date(fu.dueDate).getTime() < now;
+                  const isHighCritical = fu.priority === 'CRITICAL' || fu.priority === 'HIGH';
+
+                  return (
+                    <tr
+                      key={fu.id}
+                      className={`hover:bg-white/5 transition-colors ${
+                        isOverdue && isHighCritical ? 'bg-rose-950/15 border-l-2 border-rose-500' : ''
+                      }`}
+                    >
+                      <td className="p-4 whitespace-nowrap">
+                        <a href={`/review/${fu.caseId}`} className="font-mono font-bold text-white hover:text-[#D4AF37] transition-colors">
+                          {fu.caseId}
+                        </a>
+                        <span className="block text-[10px] text-gray-500 font-mono">{fu.id}</span>
+                      </td>
+                      <td className="p-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                          fu.priority === 'CRITICAL' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
+                          fu.priority === 'HIGH' ? 'bg-rose-500/10 text-rose-400' :
+                          fu.priority === 'MEDIUM' ? 'bg-amber-500/10 text-amber-400' : 'bg-gray-500/10 text-gray-400'
+                        }`}>
+                          {fu.priority}
+                        </span>
+                      </td>
+                      <td className="p-4 whitespace-nowrap space-y-1">
+                        <div className="font-semibold text-gray-200">{fu.status}</div>
+                        <div>{getEscalationBadge(fu.escalationLevel)}</div>
+                      </td>
+                      <td className="p-4 whitespace-nowrap text-gray-400">
+                        <div className="flex items-center gap-1.5">
+                          <User className="w-3.5 h-3.5 text-gray-500" />
+                          <span>{fu.owner}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-[10px] mt-0.5">
+                          <Clock className="w-3 h-3 text-gray-500" />
+                          <span className={isOverdue ? "text-rose-400 font-semibold" : "text-gray-500"}>
+                            Due {format(new Date(fu.dueDate), 'MMM d, yyyy')}
+                          </span>
+                          {isOverdue && (
+                            <span className="text-[9px] uppercase px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">
+                              Overdue
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-4 text-xs text-gray-300 max-w-xs truncate" title={fu.resolutionNotes || fu.overrideReason || ""}>
+                        {fu.overrideReason ? (
+                          <span className="text-amber-400 italic">Override: {fu.overrideReason}</span>
+                        ) : (
+                          fu.resolutionNotes || "Awaiting clinician assessment."
+                        )}
+                      </td>
                     <td className="p-4 whitespace-nowrap text-right space-x-2">
                       <button
                         onClick={() => {
@@ -286,8 +337,9 @@ export default function FollowUpsPage() {
                       )}
                     </td>
                   </tr>
-                ))
-              )}
+                );
+              })
+            )}
             </tbody>
           </table>
         </div>
@@ -307,6 +359,50 @@ export default function FollowUpsPage() {
                     {actionType === "VIEW_HISTORY" && `Escalation History: ${selectedItem.caseId}`}
                   </h2>
                   <span className="font-mono text-gray-500 text-[10px]">{selectedItem.id}</span>
+                </div>
+
+                {/* Case Metadata Details */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 bg-white/5 border border-white/5 rounded-lg text-[11px]">
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Case ID</span>
+                    <span className="font-mono font-bold text-white">{selectedItem.caseId}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Owner</span>
+                    <span className="text-gray-200">{selectedItem.owner}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Priority</span>
+                    <span className={selectedItem.priority === 'CRITICAL' ? 'text-rose-400 font-bold' : selectedItem.priority === 'HIGH' ? 'text-rose-400' : 'text-amber-400'}>
+                      {selectedItem.priority}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Due Date</span>
+                    <span className="text-gray-200">{format(new Date(selectedItem.dueDate), 'MMM d, yyyy')}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Status</span>
+                    <span className="text-gray-200 font-medium">{selectedItem.status}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Escalation</span>
+                    <span className="text-gray-200">Level {selectedItem.escalationLevel}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Created</span>
+                    <span className="text-gray-400 font-mono text-[10px]">
+                      {selectedItem.createdAt ? format(new Date(selectedItem.createdAt), 'MMM d, HH:mm') : 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block text-[9px] uppercase">Updated</span>
+                    <span className="text-gray-400 font-mono text-[10px]">
+                      {selectedItem.escalationHistory && selectedItem.escalationHistory.length > 0
+                        ? format(new Date(selectedItem.escalationHistory[selectedItem.escalationHistory.length - 1].timestamp), 'MMM d, HH:mm')
+                        : selectedItem.createdAt ? format(new Date(selectedItem.createdAt), 'MMM d, HH:mm') : 'N/A'}
+                    </span>
+                  </div>
                 </div>
 
                 {actionType === "VIEW_HISTORY" ? (
