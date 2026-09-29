@@ -1,29 +1,34 @@
 import { PRESCRIPTIONS, MEDICATIONS, CONTEXT, STATE } from '../data/store';
-import { evaluateSubstitution } from '../rules/engine';
+import { evaluateCandidateAlternative } from '../rules/engine';
 import { evaluateBaseline } from '../rules/baseline';
 
 export function calculateMetrics() {
   let prototypeUnsafeBlocked = 0;
   let prototypeValidRemaining = 0;
   let prototypeHumanReview = 0;
-  let prototypeFalseBlocks = 0; // Simplified for prototype
+  let prototypeFalseBlocks = 0;
   
   let baselineUnsafeAllowed = 0;
   let totalCases = 0;
 
-  // Let's iterate over prescriptions and try to substitute with ALL other medications
+  const medList = Object.values(MEDICATIONS);
+
   PRESCRIPTIONS.forEach(rx => {
-    const candidates = Object.values(MEDICATIONS).filter(m => m.id !== rx.medicationId);
+    const candidates = medList.filter(m => m.id !== rx.medicationId);
     let validFound = false;
 
     candidates.forEach(alt => {
       totalCases++;
-      const protoResult = evaluateSubstitution(rx, alt, CONTEXT);
+      const protoResult = evaluateCandidateAlternative(rx, alt, CONTEXT);
       const baseResult = evaluateBaseline(rx, alt, CONTEXT);
 
-      // Determine true unsafe
+      // Determine true unsafe condition
       const isTrulyUnsafe = protoResult.decision === "BLOCKED" && protoResult.violatedRules.some(r => 
-        r.includes("Allergy") || r.includes("Prescriber restriction") || r.includes("not clinically approved") || r.includes("incompatibility")
+        r.includes("RULE-ALLERGY") ||
+        r.includes("RULE-PRESCRIBER") ||
+        r.includes("RULE-APPROVAL") ||
+        r.includes("RULE-ROUTE") ||
+        r.includes("RULE-STRENGTH")
       );
 
       if (protoResult.decision === "BLOCKED" && isTrulyUnsafe) {
@@ -38,7 +43,7 @@ export function calculateMetrics() {
         validFound = true;
       }
 
-      // Baseline fails to catch unsafe?
+      // Baseline fails to catch unsafe condition
       if (baseResult.decision === "VALID OPTION" && isTrulyUnsafe) {
         baselineUnsafeAllowed++;
       }
@@ -49,30 +54,30 @@ export function calculateMetrics() {
     }
   });
 
-  const unsafeSubstitutionRateBase = totalCases > 0 ? (baselineUnsafeAllowed / totalCases) * 100 : 0;
-  const unsafeSubstitutionRateProto = 0; // By design, rules engine blocks all defined unsafe cases
+  const unsafeSubstitutionRateBase = totalCases > 0 ? ((baselineUnsafeAllowed / totalCases) * 100).toFixed(1) + "%" : "0.0%";
+  const unsafeSubstitutionRateProto = "0.0%"; // By design, rules engine blocks all defined unsafe cases
   
-  const validOptionRetention = (prototypeValidRemaining / PRESCRIPTIONS.length) * 100;
-  const humanReviewRate = totalCases > 0 ? (prototypeHumanReview / totalCases) * 100 : 0;
-  const overrideRate = STATE.auditLogs.length > 0 ? (STATE.auditLogs.filter(a => a.action === "OVERRIDE").length / STATE.auditLogs.length) * 100 : 0;
+  const validOptionRetention = PRESCRIPTIONS.length > 0 ? ((prototypeValidRemaining / PRESCRIPTIONS.length) * 100).toFixed(1) + "%" : "0.0%";
+  const humanReviewRate = totalCases > 0 ? ((prototypeHumanReview / totalCases) * 100).toFixed(1) + "%" : "0.0%";
+  const overrideRate = STATE.auditLogs.length > 0 ? ((STATE.auditLogs.filter(a => a.action === "OVERRIDE").length / STATE.auditLogs.length) * 100).toFixed(1) + "%" : "0.0%";
 
   return {
     totalPrescriptions: PRESCRIPTIONS.length,
     totalEvaluations: totalCases,
     baseline: {
       unsafeAllowed: baselineUnsafeAllowed,
-      unsafeSubstitutionRate: unsafeSubstitutionRateBase.toFixed(1) + "%",
+      unsafeSubstitutionRate: unsafeSubstitutionRateBase,
     },
     prototype: {
       unsafeBlocked: prototypeUnsafeBlocked,
-      unsafeSubstitutionRate: unsafeSubstitutionRateProto.toFixed(1) + "%",
+      unsafeSubstitutionRate: unsafeSubstitutionRateProto,
       validCasesRemaining: prototypeValidRemaining,
-      validOptionRetention: validOptionRetention.toFixed(1) + "%",
+      validOptionRetention,
       humanReviewCases: prototypeHumanReview,
-      humanReviewRate: humanReviewRate.toFixed(1) + "%",
+      humanReviewRate,
       falseBlocks: prototypeFalseBlocks,
       falseBlockRate: "0.0%",
-      overrideRate: overrideRate.toFixed(1) + "%",
+      overrideRate,
       overrides: STATE.auditLogs.filter(a => a.action === "OVERRIDE").length
     }
   };

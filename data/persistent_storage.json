@@ -1,0 +1,5496 @@
+{
+  "version": "2.0.0-prototype-milestone",
+  "lastUpdated": "2026-09-29T04:56:30.620Z",
+  "medications": {
+    "MED-A": {
+      "id": "MED-A",
+      "name": "SynthCillin",
+      "class": "Antibiotic (Penicillin)",
+      "formulation": "Tablet",
+      "strength": "100 mg",
+      "route": "Oral",
+      "genericName": "Synthetic Penicillin V",
+      "bioequivalentGroup": "AB-01"
+    },
+    "MED-B": {
+      "id": "MED-B",
+      "name": "BioCillin",
+      "class": "Antibiotic (Penicillin)",
+      "formulation": "Capsule",
+      "strength": "100 mg",
+      "route": "Oral",
+      "genericName": "Bio-Amoxicillin",
+      "bioequivalentGroup": "AB-01"
+    },
+    "MED-C": {
+      "id": "MED-C",
+      "name": "Allerpen",
+      "class": "Antibiotic (Penicillin Derivative)",
+      "formulation": "Tablet",
+      "strength": "100 mg",
+      "route": "Oral",
+      "genericName": "Aller-Ampicillin",
+      "bioequivalentGroup": "AB-01"
+    },
+    "MED-D": {
+      "id": "MED-D",
+      "name": "SafeCillin",
+      "class": "Antibiotic (Penicillin)",
+      "formulation": "Oral Suspension",
+      "strength": "100 mg/5mL",
+      "route": "Oral",
+      "genericName": "Pediatric Bio-Amoxicillin",
+      "bioequivalentGroup": "AB-01"
+    },
+    "MED-E": {
+      "id": "MED-E",
+      "name": "HeavyCillin",
+      "class": "Antibiotic (Penicillin)",
+      "formulation": "Large Tablet",
+      "strength": "100 mg",
+      "route": "Oral",
+      "genericName": "SynthCillin Extended",
+      "bioequivalentGroup": "AB-01"
+    },
+    "MED-F": {
+      "id": "MED-F",
+      "name": "CardioPro",
+      "class": "Beta-Blocker",
+      "formulation": "Tablet",
+      "strength": "25 mg",
+      "route": "Oral",
+      "genericName": "Synth-Metoprolol Tartrate",
+      "bioequivalentGroup": "BB-02"
+    },
+    "MED-G": {
+      "id": "MED-G",
+      "name": "Vascocil ER",
+      "class": "Beta-Blocker",
+      "formulation": "Extended-Release Tablet",
+      "strength": "25 mg",
+      "route": "Oral",
+      "genericName": "Synth-Metoprolol Succinate",
+      "bioequivalentGroup": "BB-02"
+    },
+    "MED-H": {
+      "id": "MED-H",
+      "name": "NeuroCalm",
+      "class": "Anticonvulsant",
+      "formulation": "Capsule",
+      "strength": "100 mg",
+      "route": "Oral",
+      "genericName": "Synth-Gabapentin",
+      "bioequivalentGroup": "NC-03"
+    },
+    "MED-I": {
+      "id": "MED-I",
+      "name": "GlycoForm",
+      "class": "Antidiabetic",
+      "formulation": "Tablet",
+      "strength": "500 mg",
+      "route": "Oral",
+      "genericName": "Synth-Metformin HCl",
+      "bioequivalentGroup": "AD-04"
+    },
+    "MED-J": {
+      "id": "MED-J",
+      "name": "GlycoNorm Liquid",
+      "class": "Antidiabetic",
+      "formulation": "Oral Solution",
+      "strength": "500 mg/5mL",
+      "route": "Oral",
+      "genericName": "Synth-Metformin Solution",
+      "bioequivalentGroup": "AD-04"
+    },
+    "MED-K": {
+      "id": "MED-K",
+      "name": "RespiClear HFA",
+      "class": "Bronchodilator",
+      "formulation": "Inhaler",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "genericName": "Synth-Albuterol HFA",
+      "bioequivalentGroup": "BD-05"
+    },
+    "MED-L": {
+      "id": "MED-L",
+      "name": "RespiMist Neb",
+      "class": "Bronchodilator",
+      "formulation": "Nebulizer Solution",
+      "strength": "2.5 mg/3mL",
+      "route": "Inhalation",
+      "genericName": "Synth-Albuterol Nebules",
+      "bioequivalentGroup": "BD-05"
+    }
+  },
+  "prescriptions": [
+    {
+      "id": "RX-1001",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-01",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED by allergy; MED-B & MED-D valid",
+      "scenarioDescription": "Allergy conflict on candidate MED-C",
+      "clinicalNotes": "Patient has documented rash/urticaria with Allerpen. Safe alternatives remain available."
+    },
+    {
+      "id": "RX-1002",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-02",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-C UNSUITABLE (stock 0); MED-B & MED-D valid",
+      "scenarioDescription": "Candidate out of stock",
+      "clinicalNotes": "MED-C depleted in primary distribution warehouse."
+    },
+    {
+      "id": "RX-1003",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-03",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "All alternatives BLOCKED by prescriber DAW-1 directive",
+      "scenarioDescription": "Prescriber prohibition",
+      "clinicalNotes": "Prescriber annotated DAW-1: dispense as written."
+    },
+    {
+      "id": "RX-1004",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-04",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E NEEDS_HUMAN_REVIEW; MED-B capsule & MED-D suspension valid",
+      "scenarioDescription": "Patient dysphagia constraint",
+      "clinicalNotes": "Patient has swallowing impairment following neurological event."
+    },
+    {
+      "id": "RX-DEMO",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-DEMO",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid; MED-C out of stock",
+      "scenarioDescription": "Live demonstration case with multiple interacting constraints",
+      "clinicalNotes": "Demonstrates allergy block, stock rejection, and safe alternative retention in one case."
+    },
+    {
+      "id": "RX-1006",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-06",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G VALID OPTION; others unapproved",
+      "scenarioDescription": "Cardiovascular therapeutic substitution",
+      "clinicalNotes": "Hospital inpatient transitioning to home maintenance."
+    },
+    {
+      "id": "RX-1007",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-07",
+      "prescriberId": "DOC-STRICT-CARDIO",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "BLOCKED by prescriber restriction",
+      "scenarioDescription": "Cardiovascular prescriber restriction",
+      "clinicalNotes": "Cardiologist strictly orders brand titration only."
+    },
+    {
+      "id": "RX-1008",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "As Needed",
+      "quantity": 1,
+      "patientId": "PAT-08",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "NEEDS_HUMAN_REVIEW due to stale telemetry on MED-L stock",
+      "scenarioDescription": "Stale inventory telemetry (uncertainty trigger)",
+      "clinicalNotes": "Warehouse inventory count has not synced in over 4 days."
+    },
+    {
+      "id": "RX-1009",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-09",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (enteral feeding tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is VALID; tablet forms require review/block",
+      "scenarioDescription": "Enteral tube formulation requirement",
+      "clinicalNotes": "Patient has PEG tube; cannot receive solid dosage forms."
+    },
+    {
+      "id": "RX-1010",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-10",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets",
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [
+        "MED-B",
+        "MED-D"
+      ],
+      "expectedOutcome": "NO_VALID_OPTION (MED-B & D allergic, MED-C out of stock, MED-E formulation violation)",
+      "scenarioDescription": "No valid options remain across all candidates",
+      "clinicalNotes": "Complex multi-morbidity case requiring direct prescriber consultation."
+    },
+    {
+      "id": "RX-1011",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-11",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1012",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-12",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1013",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-13",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1014",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-14",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1015",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-15",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1016",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-16",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1017",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-17",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1018",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-18",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1019",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-19",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1020",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-20",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1021",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-21",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1022",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-22",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1023",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-23",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1024",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-24",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1025",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-25",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1026",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-26",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1027",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-27",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1028",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-28",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1029",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-29",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1030",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-30",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1031",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-31",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1032",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-32",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1033",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-33",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1034",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-34",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1035",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-35",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1036",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-36",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1037",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-37",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1038",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-38",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1039",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-39",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1040",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-40",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1041",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-41",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1042",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-42",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1043",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-43",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1044",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-44",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1045",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-45",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1046",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-46",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1047",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-47",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1048",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-48",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1049",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-49",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1050",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-50",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1051",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-51",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1052",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-52",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1053",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-53",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1054",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-54",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1055",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-55",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1056",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-56",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1057",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-57",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1058",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-58",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1059",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-59",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1060",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-60",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1061",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-61",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1062",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-62",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1063",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-63",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1064",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-64",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1065",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-65",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1066",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-66",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1067",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-67",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1068",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-68",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1069",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-69",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1070",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-70",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1071",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-71",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1072",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-72",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1073",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-73",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1074",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-74",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1075",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-75",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1076",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-76",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1077",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-77",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1078",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-78",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1079",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-79",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1080",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-80",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1081",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-81",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1082",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-82",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1083",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-83",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1084",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-84",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1085",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-85",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1086",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-86",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1087",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-87",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1088",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-88",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1089",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-89",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1090",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-90",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1091",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-91",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1092",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-92",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1093",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-93",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1094",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-94",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1095",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-95",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1096",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-96",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1097",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-97",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1098",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-98",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1099",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-99",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1100",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-100",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1101",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-101",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1102",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-102",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1103",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-103",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1104",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-104",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1105",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-105",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1106",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-106",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1107",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-107",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1108",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-108",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1109",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-109",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1110",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-110",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1111",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-111",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1112",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-112",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1113",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-113",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1114",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-114",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1115",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-115",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1116",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-116",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1117",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-117",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1118",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-118",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1119",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-119",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1120",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-120",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1121",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-121",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1122",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-122",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1123",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-123",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1124",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-124",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1125",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-125",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1126",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-126",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1127",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-127",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1128",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-128",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1129",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-129",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1130",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-130",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1131",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-131",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1132",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-132",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1133",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-133",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1134",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-134",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1135",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-135",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1136",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-136",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1137",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-137",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1138",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-138",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1139",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-139",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1140",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-140",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1141",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-141",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1142",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-142",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1143",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-143",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1144",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-144",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1145",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-145",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1146",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-146",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1147",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-147",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1148",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-148",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1149",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-149",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1150",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-150",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1151",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-151",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1152",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-152",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1153",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-153",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1154",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-154",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1155",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-155",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1156",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-156",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1157",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-157",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1158",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-158",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1159",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-159",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1160",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-160",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1161",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-161",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1162",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-162",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1163",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-163",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1164",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-164",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1165",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-165",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1166",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-166",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1167",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-167",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1168",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-168",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1169",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-169",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1170",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-170",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1171",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-171",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1172",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-172",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1173",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-173",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1174",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-174",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1175",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-175",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1176",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-176",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1177",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-177",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1178",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-178",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1179",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-179",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1180",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-180",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1181",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-181",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1182",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-182",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1183",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-183",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1184",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-184",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1185",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-185",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1186",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-186",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1187",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-187",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1188",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-188",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1189",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-189",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1190",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-190",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1191",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-191",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1192",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-192",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1193",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-193",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1194",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-194",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1195",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-195",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1196",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-196",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1197",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-197",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1198",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-198",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1199",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-199",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1200",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-200",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1201",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-201",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1202",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-202",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1203",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-203",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1204",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-204",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Liquid formulation required (pediatric/gastric tube)"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid is preferred valid option",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1205",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-205",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1206",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-206",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1207",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-207",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1208",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-208",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1209",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-209",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1210",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-210",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    },
+    {
+      "id": "RX-1211",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-211",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B BLOCKED by allergy; MED-D valid alternative",
+      "scenarioDescription": "BioCillin allergy conflict safely filtered",
+      "clinicalNotes": "Penicillin derivative allergy noted in synthetic electronic health record."
+    },
+    {
+      "id": "RX-1212",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-212",
+      "prescriberId": "DOC-RESTRICT",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "URGENT_SAFETY_REVIEW or NO_VALID_OPTION (Prescriber prohibition)",
+      "scenarioDescription": "Prescriber DAW restriction enforces clinical intent",
+      "clinicalNotes": "Prescriber documented specific clinical justification for brand preservation."
+    },
+    {
+      "id": "RX-1213",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-213",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [],
+      "expectedOutcome": "MED-E flagged for review; MED-B capsule and MED-D suspension valid",
+      "scenarioDescription": "Dysphagia patient constraint check",
+      "clinicalNotes": "Patient unable to tolerate large solid dosage forms."
+    },
+    {
+      "id": "RX-1214",
+      "medicationId": "MED-I",
+      "strength": "500 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-214",
+      "prescriberId": "DOC-04",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-J Liquid valid bioequivalent",
+      "scenarioDescription": "Metformin bioequivalent interchange",
+      "clinicalNotes": "Glycemic control maintenance regimen."
+    },
+    {
+      "id": "RX-1215",
+      "medicationId": "MED-K",
+      "strength": "90 mcg",
+      "route": "Inhalation",
+      "frequency": "Once Daily",
+      "quantity": 1,
+      "patientId": "PAT-215",
+      "prescriberId": "DOC-03",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-L available with respiratory clinical review",
+      "scenarioDescription": "Aerosol delivery interchange",
+      "clinicalNotes": "Rescue bronchodilator for obstructive airway disease."
+    },
+    {
+      "id": "RX-1216",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-216",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [
+        "MED-C"
+      ],
+      "expectedOutcome": "MED-C BLOCKED; MED-B and MED-D remain valid",
+      "scenarioDescription": "Selective allergy block preserves safe alternatives",
+      "clinicalNotes": "Documented hypersensitivity to ampicillin class derivatives."
+    },
+    {
+      "id": "RX-1217",
+      "medicationId": "MED-H",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-217",
+      "prescriberId": "DOC-05",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "HUMAN_REVIEW_REQUIRED (Uncertainty on narrow therapeutic index drug)",
+      "scenarioDescription": "Narrow therapeutic index requires pharmacist confirmation",
+      "clinicalNotes": "Anticonvulsant requiring close serum concentration monitoring."
+    },
+    {
+      "id": "RX-1218",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-218",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [
+        "Cannot swallow large tablets"
+      ],
+      "allergyIds": [
+        "MED-B"
+      ],
+      "expectedOutcome": "MED-B blocked by allergy, MED-E review; MED-D Oral Suspension valid",
+      "scenarioDescription": "Single safe alternative remaining after multi-rule filtering",
+      "clinicalNotes": "SafeCillin liquid formulation is the sole safe therapeutic path."
+    },
+    {
+      "id": "RX-1219",
+      "medicationId": "MED-F",
+      "strength": "25 mg",
+      "route": "Oral",
+      "frequency": "Twice Daily",
+      "quantity": 60,
+      "patientId": "PAT-219",
+      "prescriberId": "DOC-02",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "MED-G valid alternative",
+      "scenarioDescription": "Cardiovascular beta-blocker interchange",
+      "clinicalNotes": "Hypertension management in ambulatory care setting."
+    },
+    {
+      "id": "RX-1220",
+      "medicationId": "MED-A",
+      "strength": "100 mg",
+      "route": "Oral",
+      "frequency": "Once Daily",
+      "quantity": 30,
+      "patientId": "PAT-220",
+      "prescriberId": "DOC-01",
+      "date": "2026-09-07T00:00:00.000Z",
+      "patientConstraints": [],
+      "allergyIds": [],
+      "expectedOutcome": "VALID_OPTIONS_AVAILABLE (MED-B and MED-D valid)",
+      "scenarioDescription": "Multiple valid safe alternatives",
+      "clinicalNotes": "Routine antibiotic dispense with robust generic bioequivalent availability."
+    }
+  ],
+  "approvedAlternatives": [
+    {
+      "sourceMedicationId": "MED-A",
+      "alternativeMedicationId": "MED-B",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-01"
+    },
+    {
+      "sourceMedicationId": "MED-A",
+      "alternativeMedicationId": "MED-C",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-02"
+    },
+    {
+      "sourceMedicationId": "MED-A",
+      "alternativeMedicationId": "MED-D",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg/5mL"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-03"
+    },
+    {
+      "sourceMedicationId": "MED-A",
+      "alternativeMedicationId": "MED-E",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-04"
+    },
+    {
+      "sourceMedicationId": "MED-B",
+      "alternativeMedicationId": "MED-A",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-05"
+    },
+    {
+      "sourceMedicationId": "MED-B",
+      "alternativeMedicationId": "MED-D",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg/5mL"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-06"
+    },
+    {
+      "sourceMedicationId": "MED-B",
+      "alternativeMedicationId": "MED-E",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-07"
+    },
+    {
+      "sourceMedicationId": "MED-C",
+      "alternativeMedicationId": "MED-A",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-08"
+    },
+    {
+      "sourceMedicationId": "MED-C",
+      "alternativeMedicationId": "MED-B",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-09"
+    },
+    {
+      "sourceMedicationId": "MED-D",
+      "alternativeMedicationId": "MED-A",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-10"
+    },
+    {
+      "sourceMedicationId": "MED-D",
+      "alternativeMedicationId": "MED-B",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-11"
+    },
+    {
+      "sourceMedicationId": "MED-E",
+      "alternativeMedicationId": "MED-A",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-12"
+    },
+    {
+      "sourceMedicationId": "MED-E",
+      "alternativeMedicationId": "MED-B",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-13"
+    },
+    {
+      "sourceMedicationId": "MED-E",
+      "alternativeMedicationId": "MED-D",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg/5mL"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-14"
+    },
+    {
+      "sourceMedicationId": "MED-F",
+      "alternativeMedicationId": "MED-G",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "25 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-15"
+    },
+    {
+      "sourceMedicationId": "MED-G",
+      "alternativeMedicationId": "MED-F",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "25 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-16"
+    },
+    {
+      "sourceMedicationId": "MED-I",
+      "alternativeMedicationId": "MED-J",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "500 mg/5mL"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-17"
+    },
+    {
+      "sourceMedicationId": "MED-J",
+      "alternativeMedicationId": "MED-I",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "500 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-18"
+    },
+    {
+      "sourceMedicationId": "MED-K",
+      "alternativeMedicationId": "MED-L",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "2.5 mg/3mL"
+      ],
+      "allowedRoutes": [
+        "Inhalation"
+      ],
+      "substitutionRuleId": "RULE-19"
+    },
+    {
+      "sourceMedicationId": "MED-L",
+      "alternativeMedicationId": "MED-K",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "90 mcg"
+      ],
+      "allowedRoutes": [
+        "Inhalation"
+      ],
+      "substitutionRuleId": "RULE-20"
+    },
+    {
+      "sourceMedicationId": "MED-H",
+      "alternativeMedicationId": "MED-F",
+      "approvalStatus": "NOT_APPROVED",
+      "allowedStrengths": [],
+      "allowedRoutes": [],
+      "substitutionRuleId": "RULE-21"
+    },
+    {
+      "sourceMedicationId": "MED-A",
+      "alternativeMedicationId": "MED-F",
+      "approvalStatus": "NOT_APPROVED",
+      "allowedStrengths": [],
+      "allowedRoutes": [],
+      "substitutionRuleId": "RULE-22"
+    },
+    {
+      "sourceMedicationId": "MED-I",
+      "alternativeMedicationId": "MED-A",
+      "approvalStatus": "NOT_APPROVED",
+      "allowedStrengths": [],
+      "allowedRoutes": [],
+      "substitutionRuleId": "RULE-23"
+    },
+    {
+      "sourceMedicationId": "MED-K",
+      "alternativeMedicationId": "MED-A",
+      "approvalStatus": "NOT_APPROVED",
+      "allowedStrengths": [],
+      "allowedRoutes": [],
+      "substitutionRuleId": "RULE-24"
+    },
+    {
+      "sourceMedicationId": "MED-F",
+      "alternativeMedicationId": "MED-I",
+      "approvalStatus": "NOT_APPROVED",
+      "allowedStrengths": [],
+      "allowedRoutes": [],
+      "substitutionRuleId": "RULE-25"
+    },
+    {
+      "sourceMedicationId": "MED-B",
+      "alternativeMedicationId": "MED-C",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-26"
+    },
+    {
+      "sourceMedicationId": "MED-D",
+      "alternativeMedicationId": "MED-E",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-27"
+    },
+    {
+      "sourceMedicationId": "MED-C",
+      "alternativeMedicationId": "MED-D",
+      "approvalStatus": "APPROVED",
+      "allowedStrengths": [
+        "100 mg/5mL"
+      ],
+      "allowedRoutes": [
+        "Oral"
+      ],
+      "substitutionRuleId": "RULE-28"
+    }
+  ],
+  "allergies": [
+    {
+      "id": "ALG-001",
+      "patientId": "PAT-01",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "Allerpen (Ampicillin-core)"
+    },
+    {
+      "id": "ALG-002",
+      "patientId": "PAT-DEMO",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "BioCillin (Amoxicillin-core)"
+    },
+    {
+      "id": "ALG-003",
+      "patientId": "PAT-05",
+      "substanceId": "MED-C",
+      "severity": "Life-Threatening",
+      "allergenName": "Synthetic Penicillin Derivative"
+    },
+    {
+      "id": "ALG-004",
+      "patientId": "PAT-08",
+      "substanceId": "MED-B",
+      "severity": "Medium",
+      "allergenName": "BioCillin"
+    },
+    {
+      "id": "ALG-005",
+      "patientId": "PAT-12",
+      "substanceId": "MED-E",
+      "severity": "High",
+      "allergenName": "HeavyCillin binder compound"
+    },
+    {
+      "id": "ALG-006",
+      "patientId": "PAT-15",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "Allerpen"
+    },
+    {
+      "id": "ALG-007",
+      "patientId": "PAT-19",
+      "substanceId": "MED-B",
+      "severity": "Life-Threatening",
+      "allergenName": "BioCillin"
+    },
+    {
+      "id": "ALG-008",
+      "patientId": "PAT-23",
+      "substanceId": "MED-D",
+      "severity": "Medium",
+      "allergenName": "SafeCillin strawberry vehicle flavoring"
+    },
+    {
+      "id": "ALG-009",
+      "patientId": "PAT-27",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "Allerpen"
+    },
+    {
+      "id": "ALG-010",
+      "patientId": "PAT-31",
+      "substanceId": "MED-G",
+      "severity": "High",
+      "allergenName": "Metoprolol succinate coating"
+    },
+    {
+      "id": "ALG-011",
+      "patientId": "PAT-35",
+      "substanceId": "MED-J",
+      "severity": "Medium",
+      "allergenName": "Metformin liquid vehicle"
+    },
+    {
+      "id": "ALG-012",
+      "patientId": "PAT-39",
+      "substanceId": "MED-L",
+      "severity": "High",
+      "allergenName": "Benzalkonium chloride preservative"
+    },
+    {
+      "id": "ALG-013",
+      "patientId": "PAT-43",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "BioCillin"
+    },
+    {
+      "id": "ALG-014",
+      "patientId": "PAT-47",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "Allerpen"
+    },
+    {
+      "id": "ALG-015",
+      "patientId": "PAT-51",
+      "substanceId": "MED-E",
+      "severity": "Low",
+      "allergenName": "HeavyCillin"
+    },
+    {
+      "id": "ALG-016",
+      "patientId": "PAT-55",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "BioCillin"
+    },
+    {
+      "id": "ALG-017",
+      "patientId": "PAT-59",
+      "substanceId": "MED-C",
+      "severity": "Life-Threatening",
+      "allergenName": "Allerpen"
+    },
+    {
+      "id": "ALG-018",
+      "patientId": "PAT-63",
+      "substanceId": "MED-D",
+      "severity": "Medium",
+      "allergenName": "SafeCillin"
+    },
+    {
+      "id": "ALG-019",
+      "patientId": "PAT-67",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "BioCillin"
+    },
+    {
+      "id": "ALG-020",
+      "patientId": "PAT-71",
+      "substanceId": "MED-G",
+      "severity": "High",
+      "allergenName": "Vascocil ER"
+    },
+    {
+      "id": "ALG-021",
+      "patientId": "PAT-71",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-022",
+      "patientId": "PAT-72",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-023",
+      "patientId": "PAT-73",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-024",
+      "patientId": "PAT-74",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-025",
+      "patientId": "PAT-75",
+      "substanceId": "MED-E",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-026",
+      "patientId": "PAT-76",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-027",
+      "patientId": "PAT-77",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-028",
+      "patientId": "PAT-78",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-029",
+      "patientId": "PAT-79",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-030",
+      "patientId": "PAT-80",
+      "substanceId": "MED-C",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-031",
+      "patientId": "PAT-81",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-032",
+      "patientId": "PAT-82",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-033",
+      "patientId": "PAT-83",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-034",
+      "patientId": "PAT-84",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-035",
+      "patientId": "PAT-85",
+      "substanceId": "MED-E",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-036",
+      "patientId": "PAT-86",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-037",
+      "patientId": "PAT-87",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-038",
+      "patientId": "PAT-88",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-039",
+      "patientId": "PAT-89",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-040",
+      "patientId": "PAT-90",
+      "substanceId": "MED-B",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-041",
+      "patientId": "PAT-91",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-042",
+      "patientId": "PAT-92",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-043",
+      "patientId": "PAT-93",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-044",
+      "patientId": "PAT-94",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-045",
+      "patientId": "PAT-95",
+      "substanceId": "MED-C",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-046",
+      "patientId": "PAT-96",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-047",
+      "patientId": "PAT-97",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-048",
+      "patientId": "PAT-98",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-049",
+      "patientId": "PAT-99",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-050",
+      "patientId": "PAT-100",
+      "substanceId": "MED-B",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-051",
+      "patientId": "PAT-101",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-052",
+      "patientId": "PAT-102",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-053",
+      "patientId": "PAT-103",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-054",
+      "patientId": "PAT-104",
+      "substanceId": "MED-C",
+      "severity": "High",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-055",
+      "patientId": "PAT-105",
+      "substanceId": "MED-E",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-056",
+      "patientId": "PAT-106",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-057",
+      "patientId": "PAT-107",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-058",
+      "patientId": "PAT-108",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-059",
+      "patientId": "PAT-109",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-060",
+      "patientId": "PAT-110",
+      "substanceId": "MED-C",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-061",
+      "patientId": "PAT-111",
+      "substanceId": "MED-E",
+      "severity": "Medium",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-062",
+      "patientId": "PAT-112",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-063",
+      "patientId": "PAT-113",
+      "substanceId": "MED-C",
+      "severity": "Medium",
+      "allergenName": "MED-C synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-064",
+      "patientId": "PAT-114",
+      "substanceId": "MED-B",
+      "severity": "High",
+      "allergenName": "MED-B synthetic hypersensitivity"
+    },
+    {
+      "id": "ALG-065",
+      "patientId": "PAT-115",
+      "substanceId": "MED-E",
+      "severity": "Life-Threatening",
+      "allergenName": "MED-E synthetic hypersensitivity"
+    }
+  ],
+  "stock": {
+    "MED-A": {
+      "medicationId": "MED-A",
+      "quantityAvailable": 0,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-B": {
+      "medicationId": "MED-B",
+      "quantityAvailable": 500,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-C": {
+      "medicationId": "MED-C",
+      "quantityAvailable": 0,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-D": {
+      "medicationId": "MED-D",
+      "quantityAvailable": 150,
+      "warehouse": "Pediatric Annex",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-E": {
+      "medicationId": "MED-E",
+      "quantityAvailable": 300,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-F": {
+      "medicationId": "MED-F",
+      "quantityAvailable": 0,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-G": {
+      "medicationId": "MED-G",
+      "quantityAvailable": 240,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-H": {
+      "medicationId": "MED-H",
+      "quantityAvailable": 45,
+      "warehouse": "Controlled Vault",
+      "lastUpdated": "2026-09-02T00:00:00.000Z",
+      "isStale": true
+    },
+    "MED-I": {
+      "medicationId": "MED-I",
+      "quantityAvailable": 0,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-J": {
+      "medicationId": "MED-J",
+      "quantityAvailable": 80,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-K": {
+      "medicationId": "MED-K",
+      "quantityAvailable": 0,
+      "warehouse": "Main Warehouse",
+      "lastUpdated": "2026-09-07T00:00:00.000Z",
+      "isStale": false
+    },
+    "MED-L": {
+      "medicationId": "MED-L",
+      "quantityAvailable": 120,
+      "warehouse": "Respiratory Clinic",
+      "lastUpdated": "2026-09-02T00:00:00.000Z",
+      "isStale": true
+    }
+  },
+  "prescriberRules": [
+    {
+      "prescriberId": "DOC-RESTRICT",
+      "sourceMedicationId": "MED-A",
+      "substitutionAllowed": false,
+      "permittedAlternatives": [],
+      "restrictionReason": "DAW-1: Dispense as written. Patient stabilized on brand formulation."
+    },
+    {
+      "prescriberId": "DOC-STRICT-CARDIO",
+      "sourceMedicationId": "MED-F",
+      "substitutionAllowed": false,
+      "permittedAlternatives": [],
+      "restrictionReason": "Hemodynamic titration critical. Brand substitution prohibited."
+    },
+    {
+      "prescriberId": "DOC-NO-GENERIC",
+      "sourceMedicationId": "MED-I",
+      "substitutionAllowed": false,
+      "permittedAlternatives": [],
+      "restrictionReason": "Patient reports prior GI intolerance to generic binder."
+    },
+    {
+      "prescriberId": "DOC-RESTRICT-NEURO",
+      "sourceMedicationId": "MED-H",
+      "substitutionAllowed": false,
+      "permittedAlternatives": [],
+      "restrictionReason": "Narrow therapeutic index; bioequivalence variation unsafe."
+    },
+    {
+      "prescriberId": "DOC-PERMIT-SPECIFIC",
+      "sourceMedicationId": "MED-A",
+      "substitutionAllowed": true,
+      "permittedAlternatives": [
+        "MED-B",
+        "MED-D"
+      ],
+      "restrictionReason": "Only BioCillin and SafeCillin authorized by clinic."
+    }
+  ],
+  "evidenceCatalog": {
+    "EVID-001": {
+      "evidenceId": "EVID-001",
+      "ruleId": "RULE-ALLERGY-001",
+      "title": "Synthetic Hypersensitivity & Cross-Reactivity Standard",
+      "sourceType": "Synthetic Pharmacopeia Guideline",
+      "description": "Evaluates documented patient substance allergies and known cross-sensitivities before substitution is permitted. Automatic hard block on any candidate sharing substance ID or molecular allergen core.",
+      "version": "2026.3-SYNTH",
+      "effectiveDate": "2026-01-15",
+      "syntheticReference": "SYNTH-CLIN-REF-ALLERGY-01",
+      "status": "ACTIVE",
+      "clinicalRationale": "Substitutions involving known patient drug allergies present imminent risk of anaphylaxis or hypersensitivity reaction. Priority 1 prohibition with zero override tolerance without verified re-challenge protocol."
+    },
+    "EVID-002": {
+      "evidenceId": "EVID-002",
+      "ruleId": "RULE-PRESCRIBER-002",
+      "title": "Synthetic Prescriber Autonomy & DAW Restriction Protocol",
+      "sourceType": "Synthetic Formulary Compendium",
+      "description": "Enforces prescriber explicit instructions regarding 'Dispense As Written' (DAW-1) or named alternative restrictions. Enforces legal and clinical directives established by the ordering clinician.",
+      "version": "2026.1-SYNTH",
+      "effectiveDate": "2026-02-01",
+      "syntheticReference": "SYNTH-MED-DIRECTIVE-DAW-02",
+      "status": "ACTIVE",
+      "clinicalRationale": "Prescribers who explicitly prohibit substitution often have specific clinical rationale (e.g. narrow therapeutic index, prior adverse reaction, brand-specific stability). Priority 2 directive."
+    },
+    "EVID-003": {
+      "evidenceId": "EVID-003",
+      "ruleId": "RULE-APPROVAL-003",
+      "title": "Synthetic Bioequivalence & Therapeutic Equivalence Formulary",
+      "sourceType": "Synthetic Bioequivalence Rule",
+      "description": "Verifies that the candidate alternative is cataloged within the approved therapeutic substitution matrix with proven chemical and biological equivalence.",
+      "version": "2026.4-SYNTH",
+      "effectiveDate": "2026-03-01",
+      "syntheticReference": "SYNTH-FDA-ORANGE-EQUIV-03",
+      "status": "ACTIVE",
+      "clinicalRationale": "Non-approved chemical entities or unvetted generic formulations can result in therapeutic failure or untracked toxicities. Priority 3 barrier."
+    },
+    "EVID-004": {
+      "evidenceId": "EVID-004",
+      "ruleId": "RULE-ROUTE-004",
+      "title": "Synthetic Administration Route Compatibility Matrix",
+      "sourceType": "Synthetic Clinical Administration Guide",
+      "description": "Cross-checks the route of administration specified on the prescription (e.g. Oral, Inhalation, IV) against the approved routes for the replacement product.",
+      "version": "2026.2-SYNTH",
+      "effectiveDate": "2026-01-20",
+      "syntheticReference": "SYNTH-ROUTE-ADMIN-GUIDE-04",
+      "status": "ACTIVE",
+      "clinicalRationale": "Route mismatches (e.g. substituting an oral suspension for an inhaler, or topical for parenteral) represent severe medication delivery errors. Priority 4 barrier."
+    },
+    "EVID-005": {
+      "evidenceId": "EVID-005",
+      "ruleId": "RULE-STRENGTH-005",
+      "title": "Synthetic Dosage Exposure & Potency Equivalence Table",
+      "sourceType": "Synthetic Bioequivalence Rule",
+      "description": "Validates that the alternative dosage strength corresponds to an approved single-dose equivalent exposure without requiring unverified multi-unit conversions.",
+      "version": "2026.2-SYNTH",
+      "effectiveDate": "2026-02-15",
+      "syntheticReference": "SYNTH-DOSE-POTENCY-TABLE-05",
+      "status": "ACTIVE",
+      "clinicalRationale": "Uncontrolled strength substitutions can cause supra-therapeutic toxicity or sub-therapeutic underdosing. Priority 5 barrier."
+    },
+    "EVID-006": {
+      "evidenceId": "EVID-006",
+      "ruleId": "RULE-PATIENT-006",
+      "title": "Synthetic Patient Physical & Physiological Constraint Bulletin",
+      "sourceType": "Synthetic Patient Safety Bulletin",
+      "description": "Screens for patient-specific physical delivery constraints (e.g. swallowing difficulties/dysphagia, feeding tube compatibility, sugar intolerance) against candidate physical formulation.",
+      "version": "2026.1-SYNTH",
+      "effectiveDate": "2026-03-10",
+      "syntheticReference": "SYNTH-PATIENT-CONSTRAINT-BULLETIN-06",
+      "status": "ACTIVE",
+      "clinicalRationale": "Physical formulation incompatibilities do not immediately kill the patient but can cause choking, inability to ingest medication, or non-compliance. Priority 6 requires human pharmacist review."
+    },
+    "EVID-007": {
+      "evidenceId": "EVID-007",
+      "ruleId": "RULE-STOCK-007",
+      "title": "Synthetic Inventory Availability & Warehouse Stock Ledger",
+      "sourceType": "Synthetic Pharmacy Logistics Ledger",
+      "description": "Confirms real-time shelf quantity in the dispensing warehouse. Marks alternative as UNSUITABLE if inventory quantity is zero.",
+      "version": "2026.5-SYNTH",
+      "effectiveDate": "2026-04-01",
+      "syntheticReference": "SYNTH-INVENTORY-LEDGER-07",
+      "status": "ACTIVE",
+      "clinicalRationale": "An otherwise safe and approved drug cannot be dispensed if physical stock is absent. Priority 7 marks product as unsuitable but not safety-blocked."
+    },
+    "EVID-008": {
+      "evidenceId": "EVID-008",
+      "ruleId": "RULE-DATA-008",
+      "title": "Synthetic Data Freshness & Clinical Completeness Threshold",
+      "sourceType": "Synthetic Quality Assurance Standard",
+      "description": "Analyzes telemetry staleness (e.g. stock count > 24 hours old) and missing patient profile attributes (e.g. allergy status unconfirmed or missing prescriber restriction record).",
+      "version": "2026.2-SYNTH",
+      "effectiveDate": "2026-04-10",
+      "syntheticReference": "SYNTH-DATA-INTEGRITY-STD-08",
+      "status": "ACTIVE",
+      "clinicalRationale": "Incomplete or stale information introduces clinical uncertainty. Rather than silently passing, the engine elevates the uncertainty metric and triggers human pharmacist review."
+    }
+  },
+  "followUps": [
+    {
+      "id": "FU-001",
+      "caseId": "RX-1004",
+      "priority": "HIGH",
+      "owner": "PHARM-CLIN-01",
+      "dueDate": "2026-09-08T00:00:00.000Z",
+      "status": "OPEN",
+      "escalationLevel": 1,
+      "resolutionNotes": "Pending patient consultation regarding oral suspension vs capsule.",
+      "createdAt": "2026-09-07T00:00:00.000Z",
+      "escalationHistory": [
+        {
+          "level": 0,
+          "note": "Formulation constraint detected by engine.",
+          "timestamp": "2026-09-07T00:00:00.000Z",
+          "actor": "SYSTEM"
+        },
+        {
+          "level": 1,
+          "note": "Assigned to clinical specialist for dysphagia assessment.",
+          "timestamp": "2026-09-07T00:00:00.000Z",
+          "actor": "PHARM-LEAD"
+        }
+      ]
+    },
+    {
+      "id": "FU-002",
+      "caseId": "RX-1010",
+      "priority": "CRITICAL",
+      "owner": "PHARM-DIRECTOR",
+      "dueDate": "2026-09-07T12:00:00.000Z",
+      "status": "ESCALATED",
+      "escalationLevel": 3,
+      "resolutionNotes": "Prescriber outreach urgent: zero safe alternatives exist in current formulary.",
+      "createdAt": "2026-09-07T00:00:00.000Z",
+      "escalationHistory": [
+        {
+          "level": 0,
+          "note": "All candidate alternatives blocked.",
+          "timestamp": "2026-09-07T00:00:00.000Z",
+          "actor": "SYSTEM"
+        },
+        {
+          "level": 2,
+          "note": "Outreach initiated to prescribing physician.",
+          "timestamp": "2026-09-07T00:00:00.000Z",
+          "actor": "PHARM-CLIN-01"
+        },
+        {
+          "level": 3,
+          "note": "Escalated to Urgent Safety Board for emergency procurement.",
+          "timestamp": "2026-09-07T00:00:00.000Z",
+          "actor": "PHARM-DIRECTOR"
+        }
+      ]
+    },
+    {
+      "id": "FU-003",
+      "caseId": "RX-1008",
+      "priority": "MEDIUM",
+      "owner": "PHARM-TECH-04",
+      "dueDate": "2026-09-09T00:00:00.000Z",
+      "status": "IN PROGRESS",
+      "escalationLevel": 0,
+      "resolutionNotes": "Physical count requested for Respiratory Clinic annex.",
+      "createdAt": "2026-09-07T00:00:00.000Z",
+      "escalationHistory": [
+        {
+          "level": 0,
+          "note": "Stale stock telemetry flagged by engine.",
+          "timestamp": "2026-09-07T00:00:00.000Z",
+          "actor": "SYSTEM"
+        }
+      ]
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "LOG-INIT-001",
+      "caseId": "RX-1003",
+      "user": "PHARM-DR-SMITH",
+      "action": "OVERRIDE",
+      "previousDecision": "BLOCKED",
+      "newDecision": "APPROVED FOR REVIEW",
+      "reason": "Direct verbal authorization received from Prescriber DOC-RESTRICT confirming generic BioCillin acceptable for emergency 3-day supply.",
+      "timestamp": "2026-09-06T23:00:00.000Z",
+      "alternativeId": "MED-B"
+    },
+    {
+      "id": "LOG-INIT-002",
+      "caseId": "RX-1001",
+      "user": "SYSTEM",
+      "action": "AUTOMATED_EVALUATION",
+      "previousDecision": "PENDING",
+      "newDecision": "VALID_OPTIONS_AVAILABLE",
+      "reason": "Automated priority safety evaluation completed: MED-C blocked by allergy; MED-B cleared.",
+      "timestamp": "2026-09-07T00:00:00.000Z"
+    }
+  ],
+  "validationFeedback": [
+    {
+      "id": "FB-001",
+      "caseId": "RX-1001",
+      "reviewerName": "Dr. Evelyn Reed, PharmD",
+      "reviewerRole": "Clinical Pharmacy Specialist",
+      "agreement": "AGREE",
+      "decisionEvaluated": "BLOCKED (MED-C)",
+      "comments": "The engine correctly identified cross-sensitivity between penicillin core and Allerpen. Blocking MED-C while preserving MED-B is clinically accurate.",
+      "recommendedAction": "Maintain strict rule priority for allergen substance mapping.",
+      "timestamp": "2026-09-07T02:15:00.000Z"
+    },
+    {
+      "id": "FB-002",
+      "caseId": "RX-1004",
+      "reviewerName": "Marcus Vance, RPh",
+      "reviewerRole": "Staff Pharmacist",
+      "agreement": "AGREE",
+      "decisionEvaluated": "NEEDS_HUMAN_REVIEW (MED-E)",
+      "comments": "Marking large tablets as human review rather than outright block allows the pharmacist to verify if patient can use a pill crusher or requires liquid BioCillin.",
+      "recommendedAction": "Provide prompt with approved liquid formulations.",
+      "timestamp": "2026-09-07T03:30:00.000Z"
+    }
+  ],
+  "experimentRuns": [
+    {
+      "id": "EXP-MUM7EXZV",
+      "timestamp": "2026-09-29T04:56:30.619Z",
+      "datasetSize": 220,
+      "baseline": {
+        "totalEvaluations": 2420,
+        "unsafeAllowed": 1183,
+        "unsafeSubstitutionRate": "48.9%",
+        "validSelections": 1519,
+        "unsuitableBlocks": 901
+      },
+      "prototype": {
+        "totalEvaluations": 2420,
+        "unsafeBlocked": 2003,
+        "unsafeSubstitutionRate": "0.0%",
+        "humanReviewCases": 337,
+        "humanReviewRate": "13.9%",
+        "validCasesRemaining": 0,
+        "validOptionRetention": "0.0%",
+        "uncertaintyBreakdown": {
+          "low": 0,
+          "medium": 164,
+          "high": 2256
+        }
+      },
+      "differences": {
+        "safetyViolationsPrevented": 1183,
+        "casesRequiringReview": 337,
+        "allergyConflictsCaught": 125,
+        "prescriberProhibitionsCaught": 253,
+        "routeStrengthMismatchesCaught": 1825
+      },
+      "sampleComparisons": [
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1001",
+          "patientId": "PAT-01",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1002",
+          "patientId": "PAT-02",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1003",
+          "patientId": "PAT-03",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient formulation constraint: Patient dysphagia constraint: cannot swallow large tablets. Requires pharmacist clinical confirmation."
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1004",
+          "patientId": "PAT-04",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Allergy conflict prevented (BioCillin)"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-C",
+          "baselineResult": "UNSUITABLE",
+          "prototypeResult": "UNSUITABLE",
+          "outcomeType": "UNAVAILABLE",
+          "safetyNote": "Out of stock in warehouse (Concordant rejection)"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-DEMO",
+          "patientId": "PAT-DEMO",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "NEEDS HUMAN REVIEW",
+          "outcomeType": "REVIEW_TRIGGERED",
+          "safetyNote": "Patient physical constraint requires pharmacist review"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-J",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1006",
+          "patientId": "PAT-06",
+          "medicationId": "MED-L",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Unapproved/Incompatible substitution blocked"
+        },
+        {
+          "prescriptionId": "RX-1007",
+          "patientId": "PAT-07",
+          "medicationId": "MED-B",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1007",
+          "patientId": "PAT-07",
+          "medicationId": "MED-D",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1007",
+          "patientId": "PAT-07",
+          "medicationId": "MED-E",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1007",
+          "patientId": "PAT-07",
+          "medicationId": "MED-G",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        },
+        {
+          "prescriptionId": "RX-1007",
+          "patientId": "PAT-07",
+          "medicationId": "MED-H",
+          "baselineResult": "VALID OPTION",
+          "prototypeResult": "BLOCKED",
+          "outcomeType": "PROTECTED",
+          "safetyNote": "Prescriber prohibition enforced"
+        }
+      ]
+    }
+  ]
+}

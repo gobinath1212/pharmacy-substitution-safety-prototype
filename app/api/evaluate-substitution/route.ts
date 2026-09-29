@@ -1,22 +1,41 @@
 import { NextResponse } from 'next/server';
-import { PRESCRIPTIONS, MEDICATIONS, CONTEXT } from '../../../src/data/store';
-import { evaluateSubstitution } from '../../../src/rules/engine';
+import { getStorage } from '../../../src/storage';
+import { evaluateCandidateAlternative, evaluatePrescriptionAlternatives } from '../../../src/rules/engine';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { prescriptionId, alternativeId } = body;
+    const { prescriptionId, alternativeId, evaluateAll } = body;
 
-    const rx = PRESCRIPTIONS.find(p => p.id === prescriptionId);
-    const alt = MEDICATIONS[alternativeId];
+    const storage = getStorage();
+    const context = await storage.getSystemContext();
+    const rx = await storage.getPrescriptionById(prescriptionId);
+    const medications = await storage.getMedications();
 
-    if (!rx || !alt) {
-      return NextResponse.json({ error: "Invalid IDs" }, { status: 400 });
+    if (!rx) {
+      return NextResponse.json({ error: `Prescription ${prescriptionId} not found` }, { status: 404 });
     }
 
-    const result = evaluateSubstitution(rx, alt, CONTEXT);
+    if (evaluateAll) {
+      // Evaluate all other medications in the catalog
+      const medList = Object.values(medications);
+      const evaluation = evaluatePrescriptionAlternatives(rx, medList, context);
+      return NextResponse.json(evaluation);
+    }
+
+    if (!alternativeId) {
+      return NextResponse.json({ error: "alternativeId is required when evaluateAll is false" }, { status: 400 });
+    }
+
+    const alt = medications[alternativeId];
+    if (!alt) {
+      return NextResponse.json({ error: `Medication ${alternativeId} not found` }, { status: 404 });
+    }
+
+    const result = evaluateCandidateAlternative(rx, alt, context);
     return NextResponse.json(result);
-  } catch (error) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  } catch (error: any) {
+    console.error("evaluate-substitution error:", error);
+    return NextResponse.json({ error: error.message || "Server error" }, { status: 500 });
   }
 }
